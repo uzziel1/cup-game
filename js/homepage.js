@@ -1,4 +1,4 @@
-// let music = new Audio('../music/savage-funk.mp3');
+let music = new Audio('../music/savage-funk.mp3');
 
 let mainHTML = `  <div class="title"><img src="../imgs/Gabis-cup-game-title.png" /></div>
     <div class="high-score">High score: 0.00s</div>
@@ -40,7 +40,7 @@ function shuffle(array) {
 document.body.addEventListener(
   'click',
   function (evt) {
-    // music.play();
+    music.play();
     mainDiv.innerHTML = `   <div class="scores">
         <div class="game-current-score">Current score: 0.00s</div>
         <div class="game-high-score">High score: 0.00s</div>
