@@ -12,14 +12,15 @@ body {
 }
 
 .title img {
-  width: 300px;
+  width: 370px;
 }
 
 .high-score {
   display: flex;
   justify-content: center;
+  font-size: 35px;
 
-  font-size: 28px;
+  margin-top: -15px;
 }
 
 .settings-cog {
@@ -41,7 +42,7 @@ body {
 }
 
 .play {
-  font-size: 28px;
+  font-size: 35px;
   display: flex;
   justify-content: center;
   margin-top: 100px;
