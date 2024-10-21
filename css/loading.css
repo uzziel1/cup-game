@@ -21,10 +21,14 @@
   width: 380px;
 }
 
-.cups {
+.cup-container {
   display: flex;
   justify-content: center;
 }
-.cups img {
+.cup-container img {
   width: 50px;
+}
+
+.cup {
+  cursor: pointer;
 }
