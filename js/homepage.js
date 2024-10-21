@@ -1,4 +1,4 @@
-let music = new Audio('../music/savage-funk.mp3');
+// let music = new Audio('../music/savage-funk.mp3');
 
 let mainHTML = `  <div class="title"><img src="../imgs/Gabis-cup-game-title.png" /></div>
     <div class="high-score">High score: 0.00s</div>
@@ -37,13 +37,10 @@ function shuffle(array) {
   }
 }
 
-let clicked = false;
-
-document.body.addEventListener('click', function (evt) {
-  // music.play();
-  if (clicked === true) {
-    return;
-  } else {
+document.body.addEventListener(
+  'click',
+  function (evt) {
+    // music.play();
     mainDiv.innerHTML = `   <div class="scores">
         <div class="game-current-score">Current score: 0.00s</div>
         <div class="game-high-score">High score: 0.00s</div>
@@ -78,8 +75,6 @@ document.body.addEventListener('click', function (evt) {
 
       shuffle(cupColors);
 
-      console.log(cupColors);
-
       const cups = document.querySelectorAll('.cup');
       cups.forEach((cup, index) => {
         cup.src = `../imgs/${cupColors[index]}-cup.png`;
@@ -91,10 +86,9 @@ document.body.addEventListener('click', function (evt) {
     }
 
     shuffleAndChangeCups();
-
-    clicked = true;
-  }
-});
+  },
+  { once: true }
+);
 
 function playGame() {
   let counter = 0;
@@ -112,4 +106,15 @@ function playGame() {
   console.log(`comparisonColors are: ${comparisonColors}`);
 
   document.querySelector('.play').innerHTML = `You have ${counter} correct.`;
+
+  // Select all the cup images
+  const cups = document.querySelectorAll('.cup');
+
+  // Loop through each cup and add the dragstart event
+  cups.forEach((cup) => {
+    cup.addEventListener('dragstart', function (event) {
+      // Set the correct drag image (the cup itself)
+      event.dataTransfer.setDragImage(cup, 20, 15); // 0, 0 places the image at the cursor point
+    });
+  });
 }
