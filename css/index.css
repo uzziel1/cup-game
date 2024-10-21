@@ -15,7 +15,8 @@ body {
   width: 370px;
 }
 
-.high-score {
+.high-score,
+.current-score {
   display: flex;
   justify-content: center;
   font-size: 35px;
@@ -43,7 +44,10 @@ body {
 
 .play {
   font-size: 35px;
-  display: flex;
-  justify-content: center;
-  margin-top: 100px;
+  width: 500px;
+  position: absolute;
+  text-align: center;
+  bottom: 15vh;
+  left: 50%;
+  transform: translateX(-50%);
 }
