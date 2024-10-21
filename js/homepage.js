@@ -1,3 +1,5 @@
+let music = new Audio('../music/savage-funk.mp3');
+
 let mainHTML = `  <div class="title"><img src="../imgs/Gabis-cup-game-title.png" /></div>
     <div class="high-score">High score: 0.00s</div>
     <div class="settings-cog"><img src="../imgs/Settings-cog.png" /></div>
@@ -38,6 +40,7 @@ function shuffle(array) {
 let clicked = false;
 
 document.body.addEventListener('click', function (evt) {
+  // music.play();
   if (clicked === true) {
     return;
   } else {
