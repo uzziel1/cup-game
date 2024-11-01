@@ -1,6 +1,49 @@
 //let music = new Audio('../music/savage-funk.mp3');
 
-let mainHTML = `  <div class="title"><img src="../imgs/Gabis-cup-game-title.png" /></div>
+function dragStarted(evt) {
+  source = evt.target;
+  evt.dataTransfer.setData('text/plain', evt.target.src);
+  evt.dataTransfer.setDragImage(evt.target, 20, 15);
+  evt.dataTransfer.effectAllowed = 'move';
+}
+
+function draggingOver(evt) {
+  evt.preventDefault();
+  evt.dataTransfer.dropEffect = 'move';
+}
+
+function draggingLeave(evt) {
+  evt.preventDefault();
+}
+
+function dropped(evt) {
+  evt.preventDefault();
+  evt.stopPropagation();
+
+  var sid = source.id;
+  var tid = evt.target.id;
+
+  var tempSrc = source.src;
+  source.src = evt.target.src;
+  evt.target.src = tempSrc;
+
+  const sourceIndex = cupColors.indexOf(sid);
+  const targetIndex = cupColors.indexOf(tid);
+  if (sourceIndex !== -1 && targetIndex !== -1) {
+    [cupColors[sourceIndex], cupColors[targetIndex]] = [
+      cupColors[targetIndex],
+      cupColors[sourceIndex],
+    ];
+  }
+
+  source.id = tid;
+  evt.target.id = sid;
+
+  playGame();
+}
+
+let mainHTML = ` 
+ <div class="title"><img src="../imgs/Gabis-cup-game-title.png" /></div>
     <div class="high-score">High score: 0.00s</div>
     <div class="settings-cog"><img src="../imgs/Settings-cog.png" /></div>
     <div class="default-table"><img src="../imgs/default-table.png" /></div>
@@ -48,25 +91,92 @@ document.body.addEventListener(
 
       <div class="settings-cog"><img src="../imgs/Settings-cog.png" /></div>
 
-      <div class="table-group">
-        <div class="cup-container">
-          <img class="cup" draggable="true" src="../imgs/white-cup.png" />
-          <img class="cup" draggable="true" src="../imgs/white-cup.png" />
-          <img class="cup" draggable="true" src="../imgs/white-cup.png" />
-          <img class="cup" draggable="true" src="../imgs/white-cup.png" />
-          <img class="cup" draggable="true" src="../imgs/white-cup.png" />
-          <img class="cup" draggable="true" src="../imgs/white-cup.png" />
-          <img class="cup" draggable="true" src="../imgs/white-cup.png" />
-        </div>
-        <div class="table"><img src="../imgs/table.png" /></div>
-      </div>
-
+       <div class="table-group">
+    <div class="cup-container">
+      <img
+      id="red"
+      class="cup"
+      src="../imgs/red-cup.png"
+      alt="Image 1"
+      draggable="true"
+      ondragstart="dragStarted(event)"
+      ondragover="draggingOver(event)"
+      ondragleave="draggingLeave(event)"
+      ondrop="dropped(event)"
+      />
+      <img
+      id="orange"
+      class="cup"
+      src="../imgs/orange-cup.png"
+      alt="Image 2"
+      draggable="true"
+      ondragstart="dragStarted(event)"
+      ondragover="draggingOver(event)"
+      ondragleave="draggingLeave(event)"
+      ondrop="dropped(event)"
+      />
+      <img
+      id="yellow"
+      class="cup"
+      src="../imgs/yellow-cup.png"
+      alt="Image 3"
+      draggable="true"
+      ondragstart="dragStarted(event)"
+      ondragover="draggingOver(event)"
+      ondragleave="draggingLeave(event)"
+      ondrop="dropped(event)"
+      />
+      <img
+      id="green"
+      class="cup"
+      src="../imgs/green-cup.png"
+      alt="Image 4"
+      draggable="true"
+      ondragstart="dragStarted(event)"
+      ondragover="draggingOver(event)"
+      ondragleave="draggingLeave(event)"
+      ondrop="dropped(event)"
+      />
+      <img
+      id="blue"
+      class="cup"
+      src="../imgs/blue-cup.png"
+      alt="Image 5"
+      draggable="true"
+      ondragstart="dragStarted(event)"
+      ondragover="draggingOver(event)"
+      ondragleave="draggingLeave(event)"
+      ondrop="dropped(event)"
+      />
+      <img
+      id="purple"
+      class="cup"
+      src="../imgs/purple-cup.png"
+      alt="Image 6"
+      draggable="true"
+      ondragstart="dragStarted(event)"
+      ondragover="draggingOver(event)"
+      ondragleave="draggingLeave(event)"
+      ondrop="dropped(event)"
+      />
+      <img
+      id="pink"
+      class="cup"
+      src="../imgs/pink-cup.png"
+      alt="Image 7"
+      draggable="true"
+      ondragstart="dragStarted(event)"
+      ondragover="draggingOver(event)"
+      ondragleave="draggingLeave(event)"
+      ondrop="dropped(event)"
+      />
+  
+    </div>
+    <div class="table"><img src="../imgs/table.png" /></div>
+  </div>
       <div class="play">Shuffling Cups...</div>`;
 
     let iteration = 15;
-
-    //Recursive function that calls itself
-
     function shuffleAndChangeCups() {
       if (iteration <= 0) {
         playGame();
@@ -77,7 +187,8 @@ document.body.addEventListener(
 
       const cups = document.querySelectorAll('.cup');
       cups.forEach((cup, index) => {
-        cup.src = `../imgs/${cupColors[index]}-cup.png`;
+        cup.src = `../imgs/${cupColors[index]}-cup.png`; // Use arr[index] instead of arr[index][0]
+        cup.id = cupColors[index];
       });
 
       iteration--;
@@ -86,14 +197,13 @@ document.body.addEventListener(
     }
 
     shuffleAndChangeCups();
+    shuffle(comparisonColors);
   },
   { once: true }
 );
 
 function playGame() {
   let counter = 0;
-
-  shuffle(comparisonColors);
 
   for (let i = 0; i < cupColors.length; i++) {
     if (cupColors[i] === comparisonColors[i]) {
@@ -102,36 +212,9 @@ function playGame() {
     }
   }
 
-  console.log(`CupColors are: ${cupColors}`);
-  console.log(`comparisonColors are: ${comparisonColors}`);
-
-  document.querySelector('.play').innerHTML = `You have ${counter} correct.`;
-
-  // Select all the cup images
-  // const cups = document.querySelectorAll('.cup');
-
-  // // Loop through each cup and add the dragstart event
-  // cups.forEach((cup) => {
-  //   cup.addEventListener('dragstart', function (event) {
-  //     // Set the correct drag image (the cup itself)
-  //     event.dataTransfer.setDragImage(cup, 20, 15); // 0, 0 places the image at the cursor point
-  //     console.log('dragged');
-  //   });
-  // });
-
-  //   function handleDragStart(e) {
-  //     this.style.opacity = '0.4';
-  //     e.dataTransfer.setDragImage(this, 20, 15);
-  //   }
-
-  //   function handleDragEnd(e) {
-  //     this.style.opacity = '1';
-  //   }
-
-  //   let cups = document.querySelectorAll('.cups');
-  //   cups.forEach(function (cup) {
-  //     cup.addEventListener('dragstart', handleDragStart);
-  //     cup.addEventListener('dragend', handleDragEnd);
-  //   });
-  // }
+  if (counter !== 7) {
+    document.querySelector('.play').innerHTML = `You have ${counter} correct.`;
+  } else {
+    document.querySelector('.play').innerHTML = `You won!`;
+  }
 }

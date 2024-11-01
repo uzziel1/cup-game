@@ -17,96 +17,120 @@
         border: 8px solid #bbb;
         width: 94px;
       }
-      .M {      
-        padding-top: 0px;
-        text-align: center;
-        font-size: 12px;
-        font-family: 'Roboto', sans-serif;
-        width: 92px;
-        height: 108px;
-        line-height: 18px;
-        
-      }
+    
+
+      .table-group {
+  margin-top: 200px;
+}
+.table {
+  display: flex;
+  justify-content: center;
+}
+.table img {
+  width: 380px;
+}
+
+.cup-container {
+  display: flex;
+  justify-content: center;
+}
+.cup-container img {
+  width: 50px;
+}
+
+.cup {
+  cursor: pointer;
+}
+
     </style>
   </head>
+  <div class="table-group">
+    <div class="cup-container">
+      <img
+      id="red"
+      class="cup"
+      src="../imgs/red-cup.png"
+      alt="Image 1"
+      draggable="true"
+      ondragstart="dragStarted(event)"
+      ondragover="draggingOver(event)"
+      ondragleave="draggingLeave(event)"
+      ondrop="dropped(event)"
+      />
+      <img
+      id="orange"
+      class="cup"
+      src="../imgs/orange-cup.png"
+      alt="Image 2"
+      draggable="true"
+      ondragstart="dragStarted(event)"
+      ondragover="draggingOver(event)"
+      ondragleave="draggingLeave(event)"
+      ondrop="dropped(event)"
+      />
+      <img
+      id="yellow"
+      class="cup"
+      src="../imgs/yellow-cup.png"
+      alt="Image 3"
+      draggable="true"
+      ondragstart="dragStarted(event)"
+      ondragover="draggingOver(event)"
+      ondragleave="draggingLeave(event)"
+      ondrop="dropped(event)"
+      />
+      <img
+      id="green"
+      class="cup"
+      src="../imgs/green-cup.png"
+      alt="Image 4"
+      draggable="true"
+      ondragstart="dragStarted(event)"
+      ondragover="draggingOver(event)"
+      ondragleave="draggingLeave(event)"
+      ondrop="dropped(event)"
+      />
+      <img
+      id="blue"
+      class="cup"
+      src="../imgs/blue-cup.png"
+      alt="Image 5"
+      draggable="true"
+      ondragstart="dragStarted(event)"
+      ondragover="draggingOver(event)"
+      ondragleave="draggingLeave(event)"
+      ondrop="dropped(event)"
+      />
+      <img
+      id="purple"
+      class="cup"
+      src="../imgs/purple-cup.png"
+      alt="Image 6"
+      draggable="true"
+      ondragstart="dragStarted(event)"
+      ondragover="draggingOver(event)"
+      ondragleave="draggingLeave(event)"
+      ondrop="dropped(event)"
+      />
+      <img
+      id="pink"
+      class="cup"
+      src="../imgs/pink-cup.png"
+      alt="Image 7"
+      draggable="true"
+      ondragstart="dragStarted(event)"
+      ondragover="draggingOver(event)"
+      ondragleave="draggingLeave(event)"
+      ondrop="dropped(event)"
+      />
+  
+    </div>
+    <div class="table"><img src="../imgs/table.png" /></div>
+  </div>
+ 
 
-    <img
-    id="red"
-    class="M"
-    src="../imgs/red-cup.png"
-    alt="Image 1"
-    draggable="true"
-    ondragstart="dragStarted(event)"
-    ondragover="draggingOver(event)"
-    ondragleave="draggingLeave(event)"
-    ondrop="dropped(event)"
-    />
-    <img
-    id="orange"
-    class="M"
-    src="../imgs/orange-cup.png"
-    alt="Image 2"
-    draggable="true"
-    ondragstart="dragStarted(event)"
-    ondragover="draggingOver(event)"
-    ondragleave="draggingLeave(event)"
-    ondrop="dropped(event)"
-    />
-    <img
-    id="yellow"
-    class="M"
-    src="../imgs/yellow-cup.png"
-    alt="Image 3"
-    draggable="true"
-    ondragstart="dragStarted(event)"
-    ondragover="draggingOver(event)"
-    ondragleave="draggingLeave(event)"
-    ondrop="dropped(event)"
-    />
-    <img
-    id="green"
-    class="M"
-    src="../imgs/green-cup.png"
-    alt="Image A"
-    draggable="true"
-    ondragstart="dragStarted(event)"
-    ondragover="draggingOver(event)"
-    ondragleave="draggingLeave(event)"
-    ondrop="dropped(event)"
-    />
-    <img
-    id="blue"
-    class="M"
-    src="../imgs/blue-cup.png"
-    alt="Image B"
-    draggable="true"
-    ondragstart="dragStarted(event)"
-    ondragover="draggingOver(event)"
-    ondragleave="draggingLeave(event)"
-    ondrop="dropped(event)"
-    />
-    <img
-    id="purple"
-    class="M"
-    src="../imgs/purple-cup.png"
-    alt="Image C"
-    draggable="true"
-    ondragstart="dragStarted(event)"
-    ondragover="draggingOver(event)"
-    ondragleave="draggingLeave(event)"
-    ondrop="dropped(event)"
-    />
-    <img
-    id="pink"
-    class="M"
-    src="../imgs/pink-cup.png"
-    alt="Image D"
-    draggable="true"
-    ondragstart="dragStarted(event)"
-    ondragover="draggingOver(event)"
-    ondragleave="draggingLeave(event)"
-    ondrop="dropped(event)"
-    />
+
+
       <div id="arroutput"></div>
 
   </body>
