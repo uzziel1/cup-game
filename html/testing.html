@@ -12,32 +12,60 @@
       href="https://fonts.googleapis.com/css2?family=Hubballi&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../css/index.css" />
-    <link rel="stylesheet" href="../css/loading.css" />
+    <style>
+      #TEST {
+        border: 8px solid #bbb;
+        width: 94px;
+      }
+      .M {
+        border: 1px solid #bbb;
+        padding-top: 0px;
+        text-align: center;
+        font-size: 12px;
+        font-family: 'Roboto', sans-serif;
+        width: 92px;
+        height: 108px;
+        line-height: 18px;
+        
+      }
+    </style>
   </head>
-  <body>
-    <div class="main">
-      <div class="scores">
-        <div class="game-current-score">Current score: 0.00s</div>
-        <div class="game-high-score">High score: 0.00s</div>
-      </div>
 
-      <div class="settings-cog"><img src="../imgs/Settings-cog.png" /></div>
+      <img
+        id="green-cup"
+        class="M"
+        src="../imgs/green-cup.png"
+        alt="Image A"
+        draggable="true"
+        ondragstart="dragStarted(event)"
+        ondragover="draggingOver(event)"
+        ondragleave="draggingLeave(event)"
+        ondrop="dropped(event)"
+      />
+      <img
+        id="blue-cup"
+        class="M"
+        src="../imgs/blue-cup.png"
+        alt="Image B"
+        draggable="true"
+        ondragstart="dragStarted(event)"
+        ondragover="draggingOver(event)"
+        ondragleave="draggingLeave(event)"
+        ondrop="dropped(event)"
+      />
+      <img
+        id="purple-cup"
+        class="M"
+        src="../imgs/purple-cup.png"
+        alt="Image C"
+        draggable="true"
+        ondragstart="dragStarted(event)"
+        ondragover="draggingOver(event)"
+        ondragleave="draggingLeave(event)"
+        ondrop="dropped(event)"
+      />
+      <div id="arroutput"></div>
 
-      <div class="table-group">
-        <div class="cup-container">
-          <img class="cup" src="../imgs/white-cup.png" />
-          <img class="cup" src="../imgs/white-cup.png" />
-          <img class="cup" src="../imgs/white-cup.png" />
-          <img class="cup" src="../imgs/white-cup.png" />
-          <img class="cup" src="../imgs/white-cup.png" />
-          <img class="cup" src="../imgs/white-cup.png" />
-          <img class="cup" src="../imgs/white-cup.png" />
-        </div>
-        <div class="table"><img src="../imgs/table.png" /></div>
-      </div>
-
-      <div class="play">Shuffling Cups...</div>
-    </div>
   </body>
+  <script src="../testing/test.js"></script>
 </html>

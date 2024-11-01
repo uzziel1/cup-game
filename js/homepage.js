@@ -1,4 +1,4 @@
-let music = new Audio('../music/savage-funk.mp3');
+//let music = new Audio('../music/savage-funk.mp3');
 
 let mainHTML = `  <div class="title"><img src="../imgs/Gabis-cup-game-title.png" /></div>
     <div class="high-score">High score: 0.00s</div>
@@ -40,7 +40,7 @@ function shuffle(array) {
 document.body.addEventListener(
   'click',
   function (evt) {
-    music.play();
+    // music.play();
     mainDiv.innerHTML = `   <div class="scores">
         <div class="game-current-score">Current score: 0.00s</div>
         <div class="game-high-score">High score: 0.00s</div>
@@ -108,13 +108,29 @@ function playGame() {
   document.querySelector('.play').innerHTML = `You have ${counter} correct.`;
 
   // Select all the cup images
-  const cups = document.querySelectorAll('.cup');
+  // const cups = document.querySelectorAll('.cup');
 
-  // Loop through each cup and add the dragstart event
-  cups.forEach((cup) => {
-    cup.addEventListener('dragstart', function (event) {
-      // Set the correct drag image (the cup itself)
-      event.dataTransfer.setDragImage(cup, 20, 15); // 0, 0 places the image at the cursor point
-    });
+  // // Loop through each cup and add the dragstart event
+  // cups.forEach((cup) => {
+  //   cup.addEventListener('dragstart', function (event) {
+  //     // Set the correct drag image (the cup itself)
+  //     event.dataTransfer.setDragImage(cup, 20, 15); // 0, 0 places the image at the cursor point
+  //     console.log('dragged');
+  //   });
+  // });
+
+  function handleDragStart(e) {
+    this.style.opacity = '0.4';
+    e.dataTransfer.setDragImage(this, 20, 15);
+  }
+
+  function handleDragEnd(e) {
+    this.style.opacity = '1';
+  }
+
+  let cups = document.querySelectorAll('.cups');
+  cups.forEach(function (cup) {
+    cup.addEventListener('dragstart', handleDragStart);
+    cup.addEventListener('dragend', handleDragEnd);
   });
 }
