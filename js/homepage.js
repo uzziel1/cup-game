@@ -119,18 +119,19 @@ function playGame() {
   //   });
   // });
 
-  function handleDragStart(e) {
-    this.style.opacity = '0.4';
-    e.dataTransfer.setDragImage(this, 20, 15);
-  }
+  //   function handleDragStart(e) {
+  //     this.style.opacity = '0.4';
+  //     e.dataTransfer.setDragImage(this, 20, 15);
+  //   }
 
-  function handleDragEnd(e) {
-    this.style.opacity = '1';
-  }
+  //   function handleDragEnd(e) {
+  //     this.style.opacity = '1';
+  //   }
 
-  let cups = document.querySelectorAll('.cups');
-  cups.forEach(function (cup) {
-    cup.addEventListener('dragstart', handleDragStart);
-    cup.addEventListener('dragend', handleDragEnd);
-  });
+  //   let cups = document.querySelectorAll('.cups');
+  //   cups.forEach(function (cup) {
+  //     cup.addEventListener('dragstart', handleDragStart);
+  //     cup.addEventListener('dragend', handleDragEnd);
+  //   });
+  // }
 }

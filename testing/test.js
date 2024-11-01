@@ -1,9 +1,37 @@
 var arr = [
-  ['green-cup', 'Image A'],
-  ['blue-cup', 'Image B'],
-  ['purple-cup', 'Image C'],
+  ['red', 'Image 1'],
+  ['orange', 'Image 2'],
+  ['yellow', 'Image 3'],
+  ['green', 'Image A'],
+  ['blue', 'Image B'],
+  ['purple', 'Image C'],
+  ['pink', 'Image D'],
 ];
 var source;
+
+shuffle(arr);
+
+let iteration = 15;
+function shuffleAndChangeCups() {
+  if (iteration <= 0) {
+    // playGame();
+    return;
+  }
+
+  shuffle(arr);
+
+  const cups = document.querySelectorAll('.M');
+  cups.forEach((cup, index) => {
+    cup.src = `../imgs/${arr[index][0]}-cup.png`;
+    cup.id = `${arr[index][0]}`;
+  });
+
+  iteration--;
+
+  setTimeout(shuffleAndChangeCups, 200);
+}
+
+shuffleAndChangeCups();
 
 function dragStarted(evt) {
   source = evt.target; // Stores the source element being dragged
@@ -65,5 +93,19 @@ function returnIndex(array, value) {
     if (array[i][0] === value) {
       return i;
     }
+  }
+}
+
+function shuffle(array) {
+  let currentIndex = array.length;
+
+  while (currentIndex != 0) {
+    let randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
   }
 }
