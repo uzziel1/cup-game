@@ -2,6 +2,8 @@
 let startTime, intervalId;
 let elapsedTime = 0;
 let isRunning = false;
+const highScore = localStorage.getItem('high-score') || 0;
+export let score = { currentTotalMs: 0, highScoreMs: highScore };
 
 export function startTimer() {
   if (!isRunning) {
@@ -16,7 +18,23 @@ export function stopTimer() {
     clearInterval(intervalId);
     isRunning = false;
   }
+
+  if (score.highScoreMs === 0) {
+    localStorage.setItem('high-score', score.currentTotalMs);
+
+    document.querySelector(
+      '.game-high-score'
+    ).innerHTML = `High Score: ${formatTime(score.currentTotalMs)}`;
+  } else if (score.currentTotalMs < score.highScoreMs) {
+    localStorage.setItem('high-score', score.currentTotalMs);
+
+    document.querySelector(
+      '.game-high-score'
+    ).innerHTML = `High Score: ${formatTime(score.currentTotalMs)}`;
+  }
 }
+
+function setNewHighScore() {}
 
 export function resetTimer() {
   clearInterval(intervalId);
@@ -31,18 +49,18 @@ function updateDisplay() {
   }
 
   const formattedTime = formatTime(elapsedTime);
-  display.innerHTML = formattedTime;
+  display.innerHTML = `Current score: ${formattedTime}`;
 }
 
-function formatTime(milliseconds) {
+export function formatTime(milliseconds) {
   const totalSeconds = Math.floor(milliseconds / 1000);
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
   const millisecondsPart = Math.floor((milliseconds % 1000) / 10);
 
-  return `Current Score:${pad(minutes)}:${pad(seconds)}.${pad(
-    millisecondsPart
-  )}`;
+  score.currentTotalMs = milliseconds;
+
+  return `${pad(minutes)}:${pad(seconds)}.${pad(millisecondsPart)}`;
 }
 
 function pad(number) {

@@ -1,13 +1,15 @@
-import { startTimer, stopTimer, resetTimer } from './stopwatch.js';
+import { startTimer, stopTimer, formatTime, score } from './stopwatch.js';
 import { dragStarted, draggingOver, draggingLeave, dropped } from './drag.js';
 import { shuffle, shuffleComparison } from './utils.js';
 
 let music = new Audio('../music/savage-funk.mp3');
 
+const highScoreText = document.querySelector('.high-score');
+
 //Start of game starting code
 let mainHTML = ` 
  <div class="title"><img src="../imgs/Gabis-cup-game-title.png" /></div>
-    <div class="high-score">High score: 00:00.00</div>
+    <div class="high-score">High score: ${formatTime(score.highScoreMs)}</div>
     <div class="settings-cog"><img src="../imgs/Settings-cog.png" /></div>
     <div class="default-table"><img src="../imgs/default-table.png" /></div>
     <div class="play">Click to play now!</div>
@@ -63,7 +65,7 @@ document.body.addEventListener(
   </div>
       <div class="play">Shuffling Cups...</div>`;
     const display = document.querySelector('.game-current-score');
-
+    const highScoreDisplay = document.querySelector('.game-high-score');
     // Use these functions to attach the drag event listeners
     document.querySelectorAll('.cup').forEach((cup) => {
       cup.addEventListener('dragstart', dragStarted);
@@ -71,6 +73,7 @@ document.body.addEventListener(
       cup.addEventListener('dragleave', draggingLeave);
       cup.addEventListener('drop', dropped);
     });
+    highScoreDisplay.innerHTML = `High Score: ${formatTime(score.highScoreMs)}`; //Set highscore display before shuffling cups
     let iteration = 15;
     function shuffleAndChangeCups() {
       if (iteration <= 0) {
