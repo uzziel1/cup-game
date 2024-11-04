@@ -1,5 +1,6 @@
 import { startTimer, stopTimer, formatTime, score } from './stopwatch.js';
 import { dragStarted, draggingOver, draggingLeave, dropped } from './drag.js';
+import { touchStarted, touchMoving, touchEnded } from './touch.js';
 import { shuffle, shuffleComparison } from './utils.js';
 
 let music = new Audio('../music/savage-funk.mp3');
@@ -72,6 +73,13 @@ document.body.addEventListener(
       cup.addEventListener('dragover', draggingOver);
       cup.addEventListener('dragleave', draggingLeave);
       cup.addEventListener('drop', dropped);
+    });
+
+    // Add event listeners to the elements for touch events
+    document.querySelectorAll('.cup').forEach((cup) => {
+      cup.addEventListener('touchstart', touchStarted);
+      cup.addEventListener('touchmove', touchMoving);
+      cup.addEventListener('touchend', touchEnded);
     });
     highScoreDisplay.innerHTML = `High Score: ${formatTime(score.highScoreMs)}`; //Set highscore display before shuffling cups
     let iteration = 15;
