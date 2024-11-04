@@ -1,39 +1,3 @@
-.scores {
-  margin-top: 100px;
-}
-
-.game-high-score,
-.game-current-score {
-  display: flex;
-  justify-content: center;
-  font-size: 35px;
-
-  margin-top: 10px;
-}
-.table-group {
-  margin-top: 200px;
-}
-.table {
-  display: flex;
-  justify-content: center;
-}
-.table img {
-  width: 380px;
-}
-
-.cup-container {
-  display: flex;
-  justify-content: center;
-}
-.cup-container img {
-  width: 50px;
-}
-
-.cup {
-  cursor: pointer;
-}
-
-/* PLAY AGAIN MODAL */
 .play-again-container {
   background-color: white;
   border-radius: 20px;

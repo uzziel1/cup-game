@@ -2,8 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gabi's Cup Game</title>
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0 maximum-scale=1.0 user-scalable = 0"
+    />
+    <title>Cup Game</title>
     <link rel="icon" href="../imgs/cup-game-icon.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -12,127 +16,61 @@
       href="https://fonts.googleapis.com/css2?family=Hubballi&display=swap"
       rel="stylesheet"
     />
-    <style>
-      #TEST {
-        border: 8px solid #bbb;
-        width: 94px;
-      }
-    
-
-      .table-group {
-  margin-top: 200px;
-}
-.table {
-  display: flex;
-  justify-content: center;
-}
-.table img {
-  width: 380px;
-}
-
-.cup-container {
-  display: flex;
-  justify-content: center;
-}
-.cup-container img {
-  width: 50px;
-}
-
-.cup {
-  cursor: pointer;
-}
-
-    </style>
+    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../css/loading.css" />
+    <link rel="stylesheet" href="../css/test.css" />
   </head>
-  <div class="table-group">
-    <div class="cup-container">
-      <img
-      id="red"
-      class="cup"
-      src="../imgs/red-cup.png"
-      alt="Image 1"
-      draggable="true"
-      ondragstart="dragStarted(event)"
-      ondragover="draggingOver(event)"
-      ondragleave="draggingLeave(event)"
-      ondrop="dropped(event)"
-      />
-      <img
-      id="orange"
-      class="cup"
-      src="../imgs/orange-cup.png"
-      alt="Image 2"
-      draggable="true"
-      ondragstart="dragStarted(event)"
-      ondragover="draggingOver(event)"
-      ondragleave="draggingLeave(event)"
-      ondrop="dropped(event)"
-      />
-      <img
-      id="yellow"
-      class="cup"
-      src="../imgs/yellow-cup.png"
-      alt="Image 3"
-      draggable="true"
-      ondragstart="dragStarted(event)"
-      ondragover="draggingOver(event)"
-      ondragleave="draggingLeave(event)"
-      ondrop="dropped(event)"
-      />
-      <img
-      id="green"
-      class="cup"
-      src="../imgs/green-cup.png"
-      alt="Image 4"
-      draggable="true"
-      ondragstart="dragStarted(event)"
-      ondragover="draggingOver(event)"
-      ondragleave="draggingLeave(event)"
-      ondrop="dropped(event)"
-      />
-      <img
-      id="blue"
-      class="cup"
-      src="../imgs/blue-cup.png"
-      alt="Image 5"
-      draggable="true"
-      ondragstart="dragStarted(event)"
-      ondragover="draggingOver(event)"
-      ondragleave="draggingLeave(event)"
-      ondrop="dropped(event)"
-      />
-      <img
-      id="purple"
-      class="cup"
-      src="../imgs/purple-cup.png"
-      alt="Image 6"
-      draggable="true"
-      ondragstart="dragStarted(event)"
-      ondragover="draggingOver(event)"
-      ondragleave="draggingLeave(event)"
-      ondrop="dropped(event)"
-      />
-      <img
-      id="pink"
-      class="cup"
-      src="../imgs/pink-cup.png"
-      alt="Image 7"
-      draggable="true"
-      ondragstart="dragStarted(event)"
-      ondragover="draggingOver(event)"
-      ondragleave="draggingLeave(event)"
-      ondrop="dropped(event)"
-      />
-  
+  <body>
+    <div class="main">
+      <div class="title"><img src="../imgs/Gabis-cup-game-title.png" /></div>
+      <div class="high-score">High score: ${formatTime(score.highScoreMs)}</div>
+      <div class="settings-cog"><img src="../imgs/Settings-cog.png" /></div>
+      <div class="default-table"><img src="../imgs/default-table.png" /></div>
+      <div class="play">Click to play now!</div>
+
+      <button id="open-modal-btn">click me</button>
+
+      <div class="play-again-container" id="play-again-modal">
+        <div class="top-bar">
+          <div></div>
+          <div class="play-again-text">Congrats on winning!</div>
+          <div class="exit-button" id="exit-btn">
+            <img src="../imgs/exit-button.png" />
+          </div>
+        </div>
+        <div class="score-bar">
+          <div class="cscore">
+            <div>Current score:</div>
+            <div>11:11.11</div>
+          </div>
+          <div class="hscore">
+            <div>High score:</div>
+            <div>11:11.11</div>
+          </div>
+        </div>
+        <button class="play-again-button" onclick="alert('Play again')">
+          <img src="../imgs/play-again-button.png" />
+        </button>
+      </div>
     </div>
-    <div class="table"><img src="../imgs/table.png" /></div>
-  </div>
- 
-
-
-
-      <div id="arroutput"></div>
-
   </body>
-  <script src="../testing/test.js"></script>
+  <script>
+    const modal = document.getElementById('play-again-modal');
+    const btn = document.getElementById('open-modal-btn');
+    const closeBtn = document.getElementById('exit-btn');
+
+    btn.onclick = function () {
+      modal.style.display = 'block';
+    };
+
+    closeBtn.onclick = function () {
+      modal.style.display = 'none';
+    };
+
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    };
+  </script>
 </html>

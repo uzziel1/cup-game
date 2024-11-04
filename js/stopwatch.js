@@ -25,20 +25,23 @@ export function stopTimer() {
     document.querySelector(
       '.game-high-score'
     ).innerHTML = `High Score: ${formatTime(score.currentTotalMs)}`;
+
+    score.highScoreMs = localStorage.getItem('high-score');
   } else if (score.currentTotalMs < score.highScoreMs) {
     localStorage.setItem('high-score', score.currentTotalMs);
 
     document.querySelector(
       '.game-high-score'
     ).innerHTML = `High Score: ${formatTime(score.currentTotalMs)}`;
+
+    score.highScoreMs = localStorage.getItem('high-score');
   }
 }
-
-function setNewHighScore() {}
 
 export function resetTimer() {
   clearInterval(intervalId);
   elapsedTime = 0;
+  score.currentTotalMs = 0;
   isRunning = false;
   updateDisplay();
 }
