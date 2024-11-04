@@ -56,7 +56,8 @@ export function touchEnded(evt) {
 
   const target = document.elementFromPoint(touchEndX, touchEndY);
 
-  if (target && target.tagName === 'IMG') {
+  // Ensure that the target is a cup and not any other element
+  if (target && target.tagName === 'IMG' && target.classList.contains('cup')) {
     var sid = source.id;
     var tid = target.id;
 

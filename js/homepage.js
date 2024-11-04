@@ -124,3 +124,5 @@ export function playGame() {
     stopTimer();
   }
 }
+
+function playAgain() {}
