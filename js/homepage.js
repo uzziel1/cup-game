@@ -122,7 +122,7 @@ function resetGame() {
 }
 
 function initializeGame() {
-  //  music.play();
+  music.play();
   mainDiv.innerHTML = `   <div class="scores">
       <div class="game-current-score" id ="display">Current score: 00:00.00</div>
       <div class="game-high-score" id = "high-score">High score: 00:00.00</div>
@@ -175,7 +175,7 @@ function initializeGame() {
 
     const cups = document.querySelectorAll('.cup');
     cups.forEach((cup, index) => {
-      cup.src = `../imgs/${cupColors[index]}-cup.png`; // Use arr[index] instead of arr[index][0]
+      cup.src = `../imgs/cup-colors/${cupColors[index]}-cup.png`; // Use arr[index] instead of arr[index][0]
       cup.id = cupColors[index];
     });
 

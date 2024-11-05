@@ -22,55 +22,178 @@
   </head>
   <body>
     <div class="main">
-      <div class="title"><img src="../imgs/Gabis-cup-game-title.png" /></div>
-      <div class="high-score">High score: ${formatTime(score.highScoreMs)}</div>
-      <div class="settings-cog"><img src="../imgs/Settings-cog.png" /></div>
-      <div class="default-table"><img src="../imgs/default-table.png" /></div>
-      <div class="play">Click to play now!</div>
+      <div class="scores">
+        <div class="game-current-score" id="display">
+          Current score: 00:00.00
+        </div>
+        <div class="game-high-score" id="high-score">High score: 00:00.00</div>
+      </div>
 
-      <button id="open-modal-btn">click me</button>
+      <div class="settings-cog" id="settings-cog">
+        <img src="../imgs/Settings-cog.png" />
+      </div>
 
-      <div class="play-again-container" id="play-again-modal">
-        <div class="top-bar">
-          <div></div>
-          <div class="play-again-text">Congrats on winning!</div>
-          <div class="exit-button" id="exit-btn">
-            <img src="../imgs/exit-button.png" />
+      <div class="table-group">
+        <div class="cup-container">
+          <img
+            id="red"
+            class="cup"
+            src="../imgs/cup-colors/shravani-cup.png"
+            alt="Red Cup"
+            draggable="true"
+          />
+          <img
+            id="orange"
+            class="cup"
+            src="../imgs/cup-colors/shayla-cup.png"
+            alt="Orange Cup"
+            draggable="true"
+          />
+          <img
+            id="yellow"
+            class="cup"
+            src="../imgs/cup-colors/jaime-cup.png"
+            alt="Yellow Cup"
+            draggable="true"
+          />
+          <img
+            id="green"
+            class="cup"
+            src="../imgs/cup-colors/addison-cup.png"
+            alt="Green Cup"
+            draggable="true"
+          />
+          <img
+            id="blue"
+            class="cup"
+            src="../imgs/cup-colors/jennifer-cup.png"
+            alt="Blue Cup"
+            draggable="true"
+          />
+          <img
+            id="purple"
+            class="cup"
+            src="../imgs/cup-colors/vibrant-red-cup.png"
+            alt="Purple Cup"
+            draggable="true"
+          />
+          <img
+            id="pink"
+            class="cup"
+            src="../imgs/cup-colors/white-cup.png "
+            alt="Pink Cup"
+            draggable="true"
+          />
+        </div>
+        <div class="table"><img src="../imgs/table.png" /></div>
+      </div>
+      <div class="play">Shuffling Cups...</div>
+
+      <div class="settings-container" id="settings-modal">
+        <div class="settings-top-bar">
+          <div class="settings-header">Settings</div>
+          <img id="settings-exit-btn" src="../imgs/exit-button.png" />
+        </div>
+        <div class="settings-toggles">
+          <div class="music-row">
+            <div class="music-header">Music</div>
+            <div class="settings-spacer"></div>
+            <button class="music-toggle" id="music-toggle"></button>
+          </div>
+          <div class="bg-color-row">
+            <div class="bg-color-header">BG Color</div>
+            <div class="settings-spacer"></div>
+            <button class="bg-color-toggle" id="bg-color-toggle"></button>
+          </div>
+          <div class="cup-mode-row">
+            <div class="cup-mode-header">Cup Mode</div>
+            <div class="settings-spacer"></div>
+            <button class="cup-mode-toggle">Pastel</button>
           </div>
         </div>
-        <div class="score-bar">
-          <div class="cscore">
-            <div>Current score:</div>
-            <div>11:11.11</div>
-          </div>
-          <div class="hscore">
-            <div>High score:</div>
-            <div>11:11.11</div>
-          </div>
+        <div class="settings-bottom-bar">
+          <button class="main-menu-button">Main Menu</button>
+          <button class="play-button">
+            <img style="width: 1rem" src="../imgs/play-button.png" />
+          </button>
         </div>
-        <button class="play-again-button" onclick="alert('Play again')">
-          <img src="../imgs/play-again-button.png" />
-        </button>
       </div>
     </div>
   </body>
   <script>
-    const modal = document.getElementById('play-again-modal');
-    const btn = document.getElementById('open-modal-btn');
-    const closeBtn = document.getElementById('exit-btn');
+    const settingsModal = document.getElementById('settings-modal');
+    const settingsCog = document.getElementById('settings-cog');
+    const closeSettings = document.getElementById('settings-exit-btn');
+    const musicToggle = document.getElementById('music-toggle');
+    const bgColorToggle = document.getElementById('bg-color-toggle');
 
-    btn.onclick = function () {
-      modal.style.display = 'block';
+    let music = new Audio('../music/savage-funk.mp3');
+    const buttonGreenColor = '#bcff96';
+    const buttonRedColor = '#ff6a6e';
+
+    //purple, green, blue, orange, pink, red, yellow,
+    bgColorOptions = [
+      '#eaddff',
+      '#e2ffdd',
+      '#c9f0ff',
+      '#ffceb9',
+      '#ffccff',
+      '#f78f8f',
+      '#f4da90',
+      '#ffffff',
+    ];
+    cupColorOptions = [
+      'pastel',
+      'vibrant',
+      'earth',
+      'monochrome',
+      'neon',
+      'dark',
+      'muted',
+    ];
+    let bgColorIndex = JSON.parse(localStorage.getItem('bgColorIndex')) || 0;
+    let musicOn = localStorage.getItem('musicOn') === 'true'; // Convert to boolean
+
+    // Set initial background color based on musicOn
+    if (musicOn) {
+      musicToggle.style.backgroundColor = buttonGreenColor;
+      music.play();
+    } else {
+      musicToggle.style.backgroundColor = buttonRedColor;
+    }
+
+    document.body.style.backgroundColor = bgColorOptions[bgColorIndex];
+    bgColorToggle.style.backgroundColor = bgColorOptions[bgColorIndex];
+
+    settingsCog.onclick = function () {
+      settingsModal.style.display = 'block';
     };
 
-    closeBtn.onclick = function () {
-      modal.style.display = 'none';
+    closeSettings.onclick = function () {
+      settingsModal.style.display = 'none';
     };
 
-    window.onclick = function (event) {
-      if (event.target == modal) {
-        modal.style.display = 'none';
+    //Setting Buttons
+    musicToggle.onclick = function () {
+      if (musicOn) {
+        musicOn = false;
+        musicToggle.style.backgroundColor = buttonRedColor;
+        music.pause();
+        localStorage.setItem('musicOn', 'false');
+      } else {
+        musicOn = true;
+        musicToggle.style.backgroundColor = buttonGreenColor;
+        music.play();
+        localStorage.setItem('musicOn', 'true');
       }
+    };
+
+    bgColorToggle.onclick = function () {
+      bgColorIndex = (bgColorIndex + 1) % bgColorOptions.length;
+      document.body.style.backgroundColor = bgColorOptions[bgColorIndex];
+      bgColorToggle.style.backgroundColor = bgColorOptions[bgColorIndex];
+
+      localStorage.setItem('bgColorIndex', bgColorIndex);
     };
   </script>
 </html>
