@@ -16,9 +16,99 @@ const highScoreText = document.querySelector('.high-score');
 //Start of game starting code
 let mainHTML = ` 
  <div class="title"><img src="../imgs/Gabis-cup-game-title.png" /></div>
-    <div class="high-score">High score: ${formatTime(score.highScoreMs)}</div>
-    <div class="settings-cog"><img src="../imgs/Settings-cog.png" /></div>
-    <div class="default-table"><img src="../imgs/default-table.png" /></div>
+    <div class = "scores" style = "margin-top: 0px;"> 
+        <div class="high-score">High score: ${formatTime(
+          score.highScoreMs
+        )}</div>
+    </div>
+
+       <div class="settings-cog" id = "settings-cog"><img src="../imgs/Settings-cog.png" /></div>
+      <div class="table-container">
+        <div class="table-group">
+          <div class="cup-container">
+            <img
+              id="red"
+              class="cup"
+              src="../imgs/cup-colors/red-cup.png"
+              alt="Red Cup"
+              draggable="true"
+            />
+            <img
+              id="orange"
+              class="cup"
+              src="../imgs/cup-colors/orange-cup.png"
+              alt="Orange Cup"
+              draggable="true"
+            />
+            <img
+              id="yellow"
+              class="cup"
+              src="../imgs/cup-colors/yellow-cup.png"
+              alt="Yellow Cup"
+              draggable="true"
+            />
+            <img
+              id="green"
+              class="cup"
+              src="../imgs/cup-colors/green-cup.png"
+              alt="Green Cup"
+              draggable="true"
+            />
+            <img
+              id="blue"
+              class="cup"
+              src="../imgs/cup-colors/blue-cup.png"
+              alt="Blue Cup"
+              draggable="true"
+            />
+            <img
+              id="purple"
+              class="cup"
+              src="../imgs/cup-colors/purple-cup.png"
+              alt="Purple Cup"
+              draggable="true"
+            />
+            <img
+              id="pink"
+              class="cup"
+              src="../imgs/cup-colors/pink-cup.png "
+              alt="Pink Cup"
+              draggable="true"
+            />
+          </div>
+        </div>
+        <div class="table"><img src="../imgs/table.png" /></div>
+      </div>
+
+       <div class="settings-container" id="settings-modal">
+      <div class="settings-top-bar">
+        <div class="settings-header">Settings</div>
+        <img id="settings-exit-btn" src="../imgs/exit-button.png" />
+      </div>
+      <div class="settings-toggles">
+        <div class="music-row">
+          <div class="music-header">Music</div>
+          <div class="settings-spacer"></div>
+          <button class="music-toggle" id="music-toggle"></button>
+        </div>
+        <div class="bg-color-row">
+          <div class="bg-color-header">BG Color</div>
+          <div class="settings-spacer"></div>
+          <button class="bg-color-toggle" id="bg-color-toggle"></button>
+        </div>
+        <div class="cup-mode-row">
+          <div class="cup-mode-header">Cup Mode</div>
+          <div class="settings-spacer"></div>
+          <button class="cup-mode-toggle" id="cup-mode-toggle">Pastel</button>
+        </div>
+      </div>
+      <div class="settings-bottom-bar">
+        <button class="main-menu-button">Main Menu</button>
+        <button class="play-button">
+          <img style="width: 1rem" src="../imgs/play-button.png" />
+        </button>
+      </div>
+    </div>
     <div class="play">Click to play now!</div>
 
    `;
@@ -46,7 +136,14 @@ export let comparisonColors = [
   'pink',
 ];
 
-document.body.addEventListener(
+let mainMenu = true;
+
+initializeSettingsListeners();
+initializeSettingToggles();
+
+const playButton = document.querySelector('.play');
+
+playButton.addEventListener(
   'click',
   () => {
     initializeGame();
@@ -123,27 +220,108 @@ function resetGame() {
 
 function initializeGame() {
   music.play();
-  mainDiv.innerHTML = `   <div class="scores">
-      <div class="game-current-score" id ="display">Current score: 00:00.00</div>
-      <div class="game-high-score" id = "high-score">High score: 00:00.00</div>
+  mainDiv.innerHTML = `
+ <div class="scores">
+      <div class="game-current-score" id="display">Current score: 00:00.00</div>
+      <div class="game-high-score" id="high-score">High score: 00:00.00</div>
     </div>
 
-    <div class="settings-cog"><img src="../imgs/Settings-cog.png" /></div>
+    <div class="settings-cog" id = "settings-cog"><img src="../imgs/Settings-cog.png" /></div>
 
-     <div class="table-group">
-  <div class="cup-container">
-   <img id="red" class="cup" src="../imgs/red-cup.png" alt="Red Cup" draggable="true" />
-<img id="orange" class="cup" src="../imgs/orange-cup.png" alt="Orange Cup" draggable="true" />
-<img id="yellow" class="cup" src="../imgs/yellow-cup.png" alt="Yellow Cup" draggable="true" />
-<img id="green" class="cup" src="../imgs/green-cup.png" alt="Green Cup" draggable="true" />
-<img id="blue" class="cup" src="../imgs/blue-cup.png" alt="Blue Cup" draggable="true" />
-<img id="purple" class="cup" src="../imgs/purple-cup.png" alt="Purple Cup" draggable="true" />
-<img id="pink" class="cup" src="../imgs/pink-cup.png" alt="Pink Cup" draggable="true" />
+    <div class="table-container">
+      <div class="table-group">
+        <div class="cup-container">
+          <img
+            id="red"
+            class="cup"
+            src="../imgs/cup-colors/white-cup.png"
+            alt="Red Cup"
+            draggable="true"
+          />
+          <img
+            id="orange"
+            class="cup"
+            src="../imgs/cup-colors/white-cup.png"
+            alt="Orange Cup"
+            draggable="true"
+          />
+          <img
+            id="yellow"
+            class="cup"
+            src="../imgs/cup-colors/white-cup.png"
+            alt="Yellow Cup"
+            draggable="true"
+          />
+          <img
+            id="green"
+            class="cup"
+            src="../imgs/cup-colors/white-cup.png"
+            alt="Green Cup"
+            draggable="true"
+          />
+          <img
+            id="blue"
+            class="cup"
+            src="../imgs/cup-colors/white-cup.png"
+            alt="Blue Cup"
+            draggable="true"
+          />
+          <img
+            id="purple"
+            class="cup"
+            src="../imgs/cup-colors/white-cup.png"
+            alt="Purple Cup"
+            draggable="true"
+          />
+          <img
+            id="pink"
+            class="cup"
+            src="../imgs/cup-colors/white-cup.png "
+            alt="Pink Cup"
+            draggable="true"
+          />
+        </div>
+      </div>
+      <div class="table"><img src="../imgs/table.png" /></div>
+    </div>
 
-  </div>
-  <div class="table"><img src="../imgs/table.png" /></div>
-</div>
-    <div class="play">Shuffling Cups...</div>`;
+    <div class="settings-container" id="settings-modal">
+      <div class="settings-top-bar">
+        <div class="settings-header">Settings</div>
+        <img id="settings-exit-btn" src="../imgs/exit-button.png" />
+      </div>
+      <div class="settings-toggles">
+        <div class="music-row">
+          <div class="music-header">Music</div>
+          <div class="settings-spacer"></div>
+          <button class="music-toggle" id="music-toggle"></button>
+        </div>
+        <div class="bg-color-row">
+          <div class="bg-color-header">BG Color</div>
+          <div class="settings-spacer"></div>
+          <button class="bg-color-toggle" id="bg-color-toggle"></button>
+        </div>
+        <div class="cup-mode-row">
+          <div class="cup-mode-header">Cup Mode</div>
+          <div class="settings-spacer"></div>
+          <button class="cup-mode-toggle" id="cup-mode-toggle">Pastel</button>
+        </div>
+      </div>
+      <div class="settings-bottom-bar">
+        <button class="main-menu-button">Main Menu</button>
+        <button class="play-button">
+          <img style="width: 1rem" src="../imgs/play-button.png" />
+        </button>
+      </div>
+    </div>
+    <div class="play">Shuffling Cups...</div> `;
+  //SETTINGS
+  setTimeout(() => {
+    initializeSettingsListeners();
+  }, 0);
+
+  initializeSettingToggles();
+  // //SETTINGS END
   const display = document.querySelector('.game-current-score');
   const highScoreDisplay = document.querySelector('.game-high-score');
   // Use these functions to attach the drag event listeners
@@ -168,6 +346,11 @@ function initializeGame() {
       shuffleComparison(comparisonColors);
       playGame();
       console.log(comparisonColors);
+
+      //   // utils.js:4 Uncaught TypeError: Cannot read properties of undefined (reading 'length')
+      // at shuffle (utils.js:4:28)
+      // at shuffleComparison (utils.js:22:5)
+      // at shuffleAndChangeCups (homepage.js:346:7)
       return;
     }
 
@@ -185,4 +368,221 @@ function initializeGame() {
   }
 
   shuffleAndChangeCups();
+}
+
+function initializeSettingsListeners() {
+  const settingsModal = document.getElementById('settings-modal');
+  const settingsCog = document.getElementById('settings-cog');
+  const closeSettings = document.getElementById('settings-exit-btn');
+
+  if (!settingsModal || !settingsCog || !closeSettings) {
+    console.error('Settings modal elements are missing.');
+    return;
+  }
+
+  // Attach event listeners for settings
+  settingsCog.onclick = function () {
+    settingsModal.style.display = 'block';
+  };
+
+  closeSettings.onclick = function () {
+    settingsModal.style.display = 'none';
+  };
+}
+
+function initializeSettingToggles() {
+  const musicToggle = document.getElementById('music-toggle');
+  const bgColorToggle = document.getElementById('bg-color-toggle');
+  const cupModeToggle = document.getElementById('cup-mode-toggle');
+  const imageGrid = document.getElementById('image-grid');
+
+  //Styles
+  const scoreStyle = document.querySelector('.scores').style;
+  const tableStyle = document.querySelector('.table-container').style;
+  const playStyle = document.querySelector('.play').style;
+
+  const buttonGreenColor = '#bcff96';
+  const buttonRedColor = '#ff6a6e';
+
+  //purple, green, blue, orange, pink, red, yellow,
+  const bgColorOptions = [
+    '#eaddff',
+    '#e2ffdd',
+    '#c9f0ff',
+    '#ffceb9',
+    '#ffccff',
+    '#f78f8f',
+    '#f4da90',
+    '#ffffff',
+  ];
+  const cupColorOptions = {
+    0: ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink'],
+    1: [
+      'vibrant-red',
+      'vibrant-orange',
+      'vibrant-yellow',
+      'vibrant-green',
+      'vibrant-blue',
+      'vibrant-purple',
+      'vibrant-pink',
+    ],
+    2: [
+      'sienna',
+      'peru',
+      'burlywood',
+      'dark-olive-green',
+      'olive-drab',
+      'dark-sea-green',
+      'darkwood',
+    ],
+    3: [
+      'black',
+      'dark-gray',
+      'gray',
+      'light-gray',
+      'lighter-gray',
+      'lightest-gray',
+      'white',
+    ],
+    4: ['shayla', 'alexa', 'addison', 'saad', 'shravani', 'jennifer', 'jaime'],
+    5: ['gabi1', 'gabi2', 'gabi3', 'gabi4', 'gabi5', 'gabi6', 'gabi7'],
+  };
+  const cupColorNames = [
+    'Pastel',
+    'Vibrant',
+    'Earth',
+    'Mono',
+    'Friends',
+    'Gabi',
+  ];
+  let bgColorIndex = JSON.parse(localStorage.getItem('bgColorIndex')) || 0;
+  let cupModeIndex = JSON.parse(localStorage.getItem('cupModeIndex')) || 0;
+  let musicOn = localStorage.getItem('musicOn') === 'true'; // Convert to boolean
+
+  // Set initial background color based on musicOn
+  if (musicOn) {
+    musicToggle.style.backgroundColor = buttonGreenColor;
+    music.play();
+  } else {
+    musicToggle.style.backgroundColor = buttonRedColor;
+  }
+
+  document.body.style.backgroundColor = bgColorOptions[bgColorIndex];
+  bgColorToggle.style.backgroundColor = bgColorOptions[bgColorIndex];
+
+  if (bgColorOptions[bgColorIndex] == '#ffffff') {
+    imageGrid.innerHTML = `
+      <img src="../imgs/collage1.png" />
+      <img src="../imgs/collage2.png" />
+      <img src="../imgs/collage3.png" />
+      <img src="../imgs/collage4.png" />
+      <img src="../imgs/collage5.png" />
+      <img src="../imgs/collage3.png" />`;
+
+    //Styles
+    scoreStyle.backgroundColor = 'rgba(0, 0, 0, 0.656) ';
+    scoreStyle.color = 'white';
+    scoreStyle.borderRadius = '1rem';
+    tableStyle.backgroundColor = 'rgba(44, 44, 44, 0.656)';
+    tableStyle.padding = '3rem';
+    tableStyle.borderRadius = '1rem';
+    playStyle.backgroundColor = 'rgba(0, 0, 0, 0.656) ';
+    playStyle.color = 'white';
+    playStyle.borderRadius = '1rem';
+  } else {
+    imageGrid.innerHTML = ``;
+    //Styles
+    scoreStyle.backgroundColor = 'transparent';
+    scoreStyle.color = 'black';
+    scoreStyle.borderRadius = 'none';
+    tableStyle.backgroundColor = 'transparent';
+    tableStyle.padding = 'none';
+    tableStyle.borderRadius = 'none';
+    playStyle.backgroundColor = 'transparent';
+    playStyle.color = 'black';
+    playStyle.borderRadius = 'none';
+  }
+
+  if (mainMenu) {
+    cupColors = cupColorOptions[cupModeIndex] || cupColorOptions.pastel;
+    comparisonColors = shuffle(cupColorOptions[cupModeIndex]);
+    cupModeToggle.innerHTML = cupColorNames[cupModeIndex];
+    const cups = document.querySelectorAll('.cup');
+    cups.forEach((cup, index) => {
+      cup.src = `../imgs/cup-colors/${cupColors[index]}-cup.png`; // Use arr[index] instead of arr[index][0]
+      cup.id = cupColors[index];
+    });
+    mainMenu = false;
+  }
+
+  //Setting Buttons
+  musicToggle.onclick = function () {
+    if (musicOn) {
+      musicOn = false;
+      musicToggle.style.backgroundColor = buttonRedColor;
+      music.pause();
+      localStorage.setItem('musicOn', 'false');
+    } else {
+      musicOn = true;
+      musicToggle.style.backgroundColor = buttonGreenColor;
+      music.play();
+      localStorage.setItem('musicOn', 'true');
+    }
+  };
+
+  bgColorToggle.onclick = function () {
+    bgColorIndex = (bgColorIndex + 1) % bgColorOptions.length;
+    document.body.style.backgroundColor = bgColorOptions[bgColorIndex];
+    bgColorToggle.style.backgroundColor = bgColorOptions[bgColorIndex];
+
+    if (bgColorOptions[bgColorIndex] == '#ffffff') {
+      imageGrid.innerHTML = `
+      <img src="../imgs/collage1.png" />
+      <img src="../imgs/collage2.png" />
+      <img src="../imgs/collage3.png" />
+      <img src="../imgs/collage4.png" />
+      <img src="../imgs/collage5.png" />
+      <img src="../imgs/collage3.png" />`;
+
+      //Styles
+      scoreStyle.backgroundColor = 'rgba(0, 0, 0, 0.656) ';
+      scoreStyle.color = 'white';
+      scoreStyle.borderRadius = '1rem';
+      tableStyle.backgroundColor = 'rgba(44, 44, 44, 0.656)';
+      tableStyle.padding = '3rem';
+      tableStyle.borderRadius = '1rem';
+      playStyle.backgroundColor = 'rgba(0, 0, 0, 0.656) ';
+      playStyle.color = 'white';
+      playStyle.borderRadius = '1rem';
+    } else {
+      imageGrid.innerHTML = ``;
+      //Styles
+      scoreStyle.backgroundColor = 'transparent';
+      scoreStyle.color = 'black';
+      scoreStyle.borderRadius = 'none';
+      tableStyle.backgroundColor = 'transparent';
+      tableStyle.padding = 'none';
+      tableStyle.borderRadius = 'none';
+      playStyle.backgroundColor = 'transparent';
+      playStyle.color = 'black';
+      playStyle.borderRadius = 'none';
+    }
+
+    localStorage.setItem('bgColorIndex', bgColorIndex);
+  };
+
+  cupModeToggle.onclick = function () {
+    cupModeIndex = (cupModeIndex + 1) % 6;
+    cupColors = cupColorOptions[cupModeIndex] || cupColorOptions.pastel;
+    comparisonColors = cupColorOptions[cupModeIndex] || cupColorOptions.pastel;
+
+    cupModeToggle.innerHTML = cupColorNames[cupModeIndex];
+    cups.forEach((cup, index) => {
+      cup.src = `../imgs/cup-colors/${cupColors[index]}-cup.png`;
+      // Use arr[index] instead of arr[index][0]
+      cup.id = cupColors[index];
+    });
+
+    localStorage.setItem('cupModeIndex', cupModeIndex);
+  };
 }

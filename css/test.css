@@ -1,3 +1,12 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh; /* Full screen height */
+  width: 100vw; /* Full screen width */
+  position: relative; /* Establish a stacking context */
+  overflow: hidden; /* Prevent scrolling */
+}
+
 .play-again-container {
   background-color: white;
   border-radius: 20px;
@@ -160,45 +169,42 @@
   border-radius: 0.7rem;
   text-align: center;
 }
-/* General styles for scrolling containers */
-.scrolling-container {
-  display: flex;
-  width: calc(100vw * 10); /* Adjust based on the number of images */
-  animation: scrollLeft 30s linear infinite;
-}
 
-.image-container {
-  min-width: 100vw;
-  height: 20vh; /* Height for top and bottom scrolling sections */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-/* Positioning for the top and bottom containers */
-.scrolling-container-top {
-  position: absolute;
+.image-grid {
+  position: absolute; /* Position the grid behind everything */
   top: 0;
+  left: 0;
   width: 100%;
-  overflow: hidden;
-  z-index: 0; /* Place behind main content */
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 3 columns */
+  grid-template-rows: repeat(2, 1fr); /* 2 rows */
+  gap: 0; /* No spacing between images */
+  z-index: -1; /* Push the grid behind the content */
 }
 
-.scrolling-container-bottom {
-  position: absolute;
-  bottom: 0;
+.image-grid img {
   width: 100%;
-  overflow: hidden;
-  z-index: 0; /* Place behind main content */
+  height: 100%;
+  object-fit: cover; /* Ensure images fill each grid cell */
 }
 
-@keyframes scrollLeft {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(
-      calc(-100vw * 5)
-    ); /* Adjust based on half of total images for looping */
-  }
+.main {
+  position: relative; /* Stack content above the grid */
+  z-index: 1; /* Ensure it appears above the grid */
+  padding: 20px;
+  height: 100%;
+  text-align: center;
+  background-color: rgba(
+    221,
+    221,
+    221,
+    0.4
+  ); /* Optional: Add transparency for readability */
+  border-radius: 10px; /* Optional: Rounded corners for a clean look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle shadow */
+}
+
+.table-container {
+  margin-top: 12rem;
 }
