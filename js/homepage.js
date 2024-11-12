@@ -318,9 +318,10 @@ function initializeGame() {
   //SETTINGS
   setTimeout(() => {
     initializeSettingsListeners();
+    initializeSettingToggles();
   }, 0);
 
-  initializeSettingToggles();
+ 
   // //SETTINGS END
   const display = document.querySelector('.game-current-score');
   const highScoreDisplay = document.querySelector('.game-high-score');
@@ -505,7 +506,9 @@ function initializeSettingToggles() {
 
   if (mainMenu) {
     cupColors = cupColorOptions[cupModeIndex] || cupColorOptions.pastel;
-    comparisonColors = shuffle(cupColorOptions[cupModeIndex]);
+    comparisonColors = cupColorOptions[cupModeIndex];
+
+    shuffleComparison(comparisonColors)
     cupModeToggle.innerHTML = cupColorNames[cupModeIndex];
     const cups = document.querySelectorAll('.cup');
     cups.forEach((cup, index) => {
@@ -576,6 +579,7 @@ function initializeSettingToggles() {
     cupColors = cupColorOptions[cupModeIndex] || cupColorOptions.pastel;
     comparisonColors = cupColorOptions[cupModeIndex] || cupColorOptions.pastel;
 
+    shuffleComparison(comparisonColors)
     cupModeToggle.innerHTML = cupColorNames[cupModeIndex];
     cups.forEach((cup, index) => {
       cup.src = `../imgs/cup-colors/${cupColors[index]}-cup.png`;
