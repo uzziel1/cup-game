@@ -160,3 +160,45 @@
   border-radius: 0.7rem;
   text-align: center;
 }
+/* General styles for scrolling containers */
+.scrolling-container {
+  display: flex;
+  width: calc(100vw * 10); /* Adjust based on the number of images */
+  animation: scrollLeft 30s linear infinite;
+}
+
+.image-container {
+  min-width: 100vw;
+  height: 20vh; /* Height for top and bottom scrolling sections */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Positioning for the top and bottom containers */
+.scrolling-container-top {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  z-index: 0; /* Place behind main content */
+}
+
+.scrolling-container-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+  z-index: 0; /* Place behind main content */
+}
+
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(
+      calc(-100vw * 5)
+    ); /* Adjust based on half of total images for looping */
+  }
+}

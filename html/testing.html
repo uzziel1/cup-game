@@ -21,104 +21,99 @@
     <link rel="stylesheet" href="../css/test.css" />
   </head>
   <body>
-    <div class="main">
-      <div class="scores">
-        <div class="game-current-score" id="display">
-          Current score: 00:00.00
-        </div>
-        <div class="game-high-score" id="high-score">High score: 00:00.00</div>
-      </div>
+    <div class="scores">
+      <div class="game-current-score" id="display">Current score: 00:00.00</div>
+      <div class="game-high-score" id="high-score">High score: 00:00.00</div>
+    </div>
+    <div class="settings-cog" id="settings-cog">
+      <img src="../imgs/Settings-cog.png" />
+    </div>
 
-      <div class="settings-cog" id="settings-cog">
-        <img src="../imgs/Settings-cog.png" />
-      </div>
-
-      <div class="table-group">
-        <div class="cup-container">
-          <img
-            id="red"
-            class="cup"
-            src="../imgs/cup-colors/shravani-cup.png"
-            alt="Red Cup"
-            draggable="true"
-          />
-          <img
-            id="orange"
-            class="cup"
-            src="../imgs/cup-colors/shayla-cup.png"
-            alt="Orange Cup"
-            draggable="true"
-          />
-          <img
-            id="yellow"
-            class="cup"
-            src="../imgs/cup-colors/jaime-cup.png"
-            alt="Yellow Cup"
-            draggable="true"
-          />
-          <img
-            id="green"
-            class="cup"
-            src="../imgs/cup-colors/addison-cup.png"
-            alt="Green Cup"
-            draggable="true"
-          />
-          <img
-            id="blue"
-            class="cup"
-            src="../imgs/cup-colors/jennifer-cup.png"
-            alt="Blue Cup"
-            draggable="true"
-          />
-          <img
-            id="purple"
-            class="cup"
-            src="../imgs/cup-colors/vibrant-red-cup.png"
-            alt="Purple Cup"
-            draggable="true"
-          />
-          <img
-            id="pink"
-            class="cup"
-            src="../imgs/cup-colors/white-cup.png "
-            alt="Pink Cup"
-            draggable="true"
-          />
-        </div>
-        <div class="table"><img src="../imgs/table.png" /></div>
-      </div>
-      <div class="play">Shuffling Cups...</div>
-
-      <div class="settings-container" id="settings-modal">
-        <div class="settings-top-bar">
-          <div class="settings-header">Settings</div>
-          <img id="settings-exit-btn" src="../imgs/exit-button.png" />
-        </div>
-        <div class="settings-toggles">
-          <div class="music-row">
-            <div class="music-header">Music</div>
-            <div class="settings-spacer"></div>
-            <button class="music-toggle" id="music-toggle"></button>
-          </div>
-          <div class="bg-color-row">
-            <div class="bg-color-header">BG Color</div>
-            <div class="settings-spacer"></div>
-            <button class="bg-color-toggle" id="bg-color-toggle"></button>
-          </div>
-          <div class="cup-mode-row">
-            <div class="cup-mode-header">Cup Mode</div>
-            <div class="settings-spacer"></div>
-            <button class="cup-mode-toggle">Pastel</button>
-          </div>
-        </div>
-        <div class="settings-bottom-bar">
-          <button class="main-menu-button">Main Menu</button>
-          <button class="play-button">
-            <img style="width: 1rem" src="../imgs/play-button.png" />
-          </button>
-        </div>
+    <div class="table-group">
+      <div class="cup-container">
+        <img
+          id="red"
+          class="cup"
+          src="../imgs/cup-colors/white-cup.png"
+          alt="Red Cup"
+          draggable="true"
+        />
+        <img
+          id="orange"
+          class="cup"
+          src="../imgs/cup-colors/white-cup.png"
+          alt="Orange Cup"
+          draggable="true"
+        />
+        <img
+          id="yellow"
+          class="cup"
+          src="../imgs/cup-colors/white-cup.png"
+          alt="Yellow Cup"
+          draggable="true"
+        />
+        <img
+          id="green"
+          class="cup"
+          src="../imgs/cup-colors/white-cup.png"
+          alt="Green Cup"
+          draggable="true"
+        />
+        <img
+          id="blue"
+          class="cup"
+          src="../imgs/cup-colors/white-cup.png"
+          alt="Blue Cup"
+          draggable="true"
+        />
+        <img
+          id="purple"
+          class="cup"
+          src="../imgs/cup-colors/white-cup.png"
+          alt="Purple Cup"
+          draggable="true"
+        />
+        <img
+          id="pink"
+          class="cup"
+          src="../imgs/cup-colors/white-cup.png "
+          alt="Pink Cup"
+          draggable="true"
+        />
       </div>
     </div>
+    <div class="table"><img src="../imgs/table.png" /></div>
+
+    <div class="settings-container" id="settings-modal">
+      <div class="settings-top-bar">
+        <div class="settings-header">Settings</div>
+        <img id="settings-exit-btn" src="../imgs/exit-button.png" />
+      </div>
+      <div class="settings-toggles">
+        <div class="music-row">
+          <div class="music-header">Music</div>
+          <div class="settings-spacer"></div>
+          <button class="music-toggle" id="music-toggle"></button>
+        </div>
+        <div class="bg-color-row">
+          <div class="bg-color-header">BG Color</div>
+          <div class="settings-spacer"></div>
+          <button class="bg-color-toggle" id="bg-color-toggle"></button>
+        </div>
+        <div class="cup-mode-row">
+          <div class="cup-mode-header">Cup Mode</div>
+          <div class="settings-spacer"></div>
+          <button class="cup-mode-toggle" id="cup-mode-toggle">Pastel</button>
+        </div>
+      </div>
+      <div class="settings-bottom-bar">
+        <button class="main-menu-button">Main Menu</button>
+        <button class="play-button">
+          <img style="width: 1rem" src="../imgs/play-button.png" />
+        </button>
+      </div>
+    </div>
+    <div class="play">Shuffling Cups...</div>
   </body>
   <script>
     const settingsModal = document.getElementById('settings-modal');
@@ -126,13 +121,14 @@
     const closeSettings = document.getElementById('settings-exit-btn');
     const musicToggle = document.getElementById('music-toggle');
     const bgColorToggle = document.getElementById('bg-color-toggle');
+    const cupModeToggle = document.getElementById('cup-mode-toggle');
 
     let music = new Audio('../music/savage-funk.mp3');
     const buttonGreenColor = '#bcff96';
     const buttonRedColor = '#ff6a6e';
 
     //purple, green, blue, orange, pink, red, yellow,
-    bgColorOptions = [
+    const bgColorOptions = [
       '#eaddff',
       '#e2ffdd',
       '#c9f0ff',
@@ -142,16 +138,56 @@
       '#f4da90',
       '#ffffff',
     ];
-    cupColorOptions = [
-      'pastel',
-      'vibrant',
-      'earth',
-      'monochrome',
-      'neon',
-      'dark',
-      'muted',
+    const cupColorOptions = {
+      0: ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink'],
+      1: [
+        'vibrant-red',
+        'vibrant-orange',
+        'vibrant-yellow',
+        'vibrant-green',
+        'vibrant-blue',
+        'vibrant-purple',
+        'vibrant-pink',
+      ],
+      2: [
+        'sienna',
+        'peru',
+        'burlywood',
+        'dark-olive-green',
+        'olive-drab',
+        'dark-sea-green',
+        'darkwood',
+      ],
+      3: [
+        'black',
+        'dark-gray',
+        'gray',
+        'light-gray',
+        'lighter-gray',
+        'lightest-gray',
+        'white',
+      ],
+      4: [
+        'shayla',
+        'alexa',
+        'addison',
+        'saad',
+        'shravani',
+        'jennifer',
+        'jaime',
+      ],
+      5: ['gabi1', 'gabi2', 'gabi3', 'gabi4', 'gabi5', 'gabi6', 'gabi7'],
+    };
+    const cupColorNames = [
+      'Pastel',
+      'Vibrant',
+      'Earth',
+      'Mono',
+      'Friends',
+      'Gabi',
     ];
     let bgColorIndex = JSON.parse(localStorage.getItem('bgColorIndex')) || 0;
+    let cupModeIndex = JSON.parse(localStorage.getItem('cupModeIndex')) || 0;
     let musicOn = localStorage.getItem('musicOn') === 'true'; // Convert to boolean
 
     // Set initial background color based on musicOn
@@ -165,6 +201,15 @@
     document.body.style.backgroundColor = bgColorOptions[bgColorIndex];
     bgColorToggle.style.backgroundColor = bgColorOptions[bgColorIndex];
 
+    let cupColors = cupColorOptions[cupModeIndex] || cupColorOptions.pastel;
+    cupModeToggle.innerHTML = cupColorNames[cupModeIndex];
+    const cups = document.querySelectorAll('.cup');
+    cups.forEach((cup, index) => {
+      cup.src = `../imgs/cup-colors/${cupColors[index]}-cup.png`; // Use arr[index] instead of arr[index][0]
+      cup.id = cupColors[index];
+    });
+
+    //on click functions
     settingsCog.onclick = function () {
       settingsModal.style.display = 'block';
     };
@@ -195,5 +240,35 @@
 
       localStorage.setItem('bgColorIndex', bgColorIndex);
     };
+
+    cupModeToggle.onclick = function () {
+      cupModeIndex = (cupModeIndex + 1) % 6;
+      cupColors = cupColorOptions[cupModeIndex];
+
+      cupModeToggle.innerHTML = cupColorNames[cupModeIndex];
+      cups.forEach((cup, index) => {
+        cup.src = `../imgs/cup-colors/${cupColors[index]}-cup.png`;
+        // Use arr[index] instead of arr[index][0]
+        cup.id = cupColors[index];
+      });
+
+      localStorage.setItem('cupModeIndex', cupModeIndex);
+    };
+
+    // const container = document.getElementById('scrollingContainer');
+    // let scrollAmount = 0;
+    // const scrollSpeed = 1; // Adjust scroll speed here
+
+    // function scrollImages() {
+    //   scrollAmount -= scrollSpeed;
+    //   if (Math.abs(scrollAmount) >= container.clientWidth / 2) {
+    //     scrollAmount = 0; // Reset to beginning to create seamless loop
+    //   }
+    //   container.style.transform = `translateX(${scrollAmount}px)`;
+    //   requestAnimationFrame(scrollImages);
+    // }
+
+    // scrollImages();
+    // Set initial scroll position
   </script>
 </html>
