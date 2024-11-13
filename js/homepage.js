@@ -8,6 +8,7 @@ import {
 import { dragStarted, draggingOver, draggingLeave, dropped } from './drag.js';
 import { touchStarted, touchMoving, touchEnded } from './touch.js';
 import { shuffle, shuffleComparison } from './utils.js';
+import { gameSelect, gameSelectToggle } from './game-select.js';
 
 let music = new Audio('../music/savage-funk.mp3');
 
@@ -113,7 +114,7 @@ let mainHTML = `
 
    `;
 
-const mainDiv = document.querySelector('.main');
+export const mainDiv = document.querySelector('.main');
 
 mainDiv.innerHTML = mainHTML;
 
@@ -136,7 +137,9 @@ export let comparisonColors = [
   'pink',
 ];
 
+//Page indicators
 let mainMenu = true;
+let mainMenuToggle = true;
 
 initializeSettingsListeners();
 initializeSettingToggles();
@@ -146,7 +149,9 @@ const playButton = document.querySelector('.play');
 playButton.addEventListener(
   'click',
   () => {
-    initializeGame();
+    mainMenuToggle = false;
+    mainMenu = false;
+    gameSelect();
   },
   { once: true }
 );
@@ -218,7 +223,7 @@ function resetGame() {
   initializeGame();
 }
 
-function initializeGame() {
+export function initializeGame() {
   music.play();
   mainDiv.innerHTML = `
  <div class="scores">
@@ -321,7 +326,6 @@ function initializeGame() {
     initializeSettingToggles();
   }, 0);
 
- 
   // //SETTINGS END
   const display = document.querySelector('.game-current-score');
   const highScoreDisplay = document.querySelector('.game-high-score');
@@ -371,7 +375,7 @@ function initializeGame() {
   shuffleAndChangeCups();
 }
 
-function initializeSettingsListeners() {
+export function initializeSettingsListeners() {
   const settingsModal = document.getElementById('settings-modal');
   const settingsCog = document.getElementById('settings-cog');
   const closeSettings = document.getElementById('settings-exit-btn');
@@ -391,16 +395,15 @@ function initializeSettingsListeners() {
   };
 }
 
-function initializeSettingToggles() {
+export function initializeSettingToggles() {
   const musicToggle = document.getElementById('music-toggle');
   const bgColorToggle = document.getElementById('bg-color-toggle');
   const cupModeToggle = document.getElementById('cup-mode-toggle');
   const imageGrid = document.getElementById('image-grid');
+  const mainMenuButton = document.querySelector('.main-menu-button');
+  const settingsPlayButton = document.querySelector('.play-button');
 
   //Styles
-  const scoreStyle = document.querySelector('.scores').style;
-  const tableStyle = document.querySelector('.table-container').style;
-  const playStyle = document.querySelector('.play').style;
 
   const buttonGreenColor = '#bcff96';
   const buttonRedColor = '#ff6a6e';
@@ -468,84 +471,22 @@ function initializeSettingToggles() {
     musicToggle.style.backgroundColor = buttonRedColor;
   }
 
-  document.body.style.backgroundColor = bgColorOptions[bgColorIndex];
-  bgColorToggle.style.backgroundColor = bgColorOptions[bgColorIndex];
+  if (!gameSelectToggle) {
+    const scoreStyle = document.querySelector('.scores').style;
+    const tableStyle = document.querySelector('.table-container').style;
+    const playStyle = document.querySelector('.play').style;
 
-  if (bgColorOptions[bgColorIndex] == '#ffffff') {
-    imageGrid.innerHTML = `
-      <img src="../imgs/collage1.png" />
-      <img src="../imgs/collage2.png" />
-      <img src="../imgs/collage3.png" />
-      <img src="../imgs/collage4.png" />
-      <img src="../imgs/collage5.png" />
-      <img src="../imgs/collage3.png" />`;
-
-    //Styles
-    scoreStyle.backgroundColor = 'rgba(0, 0, 0, 0.656) ';
-    scoreStyle.color = 'white';
-    scoreStyle.borderRadius = '1rem';
-    tableStyle.backgroundColor = 'rgba(44, 44, 44, 0.656)';
-    tableStyle.padding = '3rem';
-    tableStyle.borderRadius = '1rem';
-    playStyle.backgroundColor = 'rgba(0, 0, 0, 0.656) ';
-    playStyle.color = 'white';
-    playStyle.borderRadius = '1rem';
-  } else {
-    imageGrid.innerHTML = ``;
-    //Styles
-    scoreStyle.backgroundColor = 'transparent';
-    scoreStyle.color = 'black';
-    scoreStyle.borderRadius = 'none';
-    tableStyle.backgroundColor = 'transparent';
-    tableStyle.padding = 'none';
-    tableStyle.borderRadius = 'none';
-    playStyle.backgroundColor = 'transparent';
-    playStyle.color = 'black';
-    playStyle.borderRadius = 'none';
-  }
-
-  if (mainMenu) {
-    cupColors = cupColorOptions[cupModeIndex] || cupColorOptions.pastel;
-    comparisonColors = cupColorOptions[cupModeIndex];
-
-    shuffleComparison(comparisonColors)
-    cupModeToggle.innerHTML = cupColorNames[cupModeIndex];
-    const cups = document.querySelectorAll('.cup');
-    cups.forEach((cup, index) => {
-      cup.src = `../imgs/cup-colors/${cupColors[index]}-cup.png`; // Use arr[index] instead of arr[index][0]
-      cup.id = cupColors[index];
-    });
-    mainMenu = false;
-  }
-
-  //Setting Buttons
-  musicToggle.onclick = function () {
-    if (musicOn) {
-      musicOn = false;
-      musicToggle.style.backgroundColor = buttonRedColor;
-      music.pause();
-      localStorage.setItem('musicOn', 'false');
-    } else {
-      musicOn = true;
-      musicToggle.style.backgroundColor = buttonGreenColor;
-      music.play();
-      localStorage.setItem('musicOn', 'true');
-    }
-  };
-
-  bgColorToggle.onclick = function () {
-    bgColorIndex = (bgColorIndex + 1) % bgColorOptions.length;
     document.body.style.backgroundColor = bgColorOptions[bgColorIndex];
     bgColorToggle.style.backgroundColor = bgColorOptions[bgColorIndex];
 
     if (bgColorOptions[bgColorIndex] == '#ffffff') {
       imageGrid.innerHTML = `
-      <img src="../imgs/collage1.png" />
-      <img src="../imgs/collage2.png" />
-      <img src="../imgs/collage3.png" />
-      <img src="../imgs/collage4.png" />
-      <img src="../imgs/collage5.png" />
-      <img src="../imgs/collage3.png" />`;
+        <img src="../imgs/collage1.png" />
+        <img src="../imgs/collage2.png" />
+        <img src="../imgs/collage3.png" />
+        <img src="../imgs/collage4.png" />
+        <img src="../imgs/collage5.png" />
+        <img src="../imgs/collage3.png" />`;
 
       //Styles
       scoreStyle.backgroundColor = 'rgba(0, 0, 0, 0.656) ';
@@ -571,22 +512,125 @@ function initializeSettingToggles() {
       playStyle.borderRadius = 'none';
     }
 
+    cupModeToggle.innerHTML = cupColorNames[cupModeIndex];
+    if (mainMenu) {
+      cupColors = [
+        ...(cupColorOptions[cupModeIndex] || cupColorOptions.pastel),
+      ];
+      comparisonColors = [
+        ...(cupColorOptions[cupModeIndex] || cupColorOptions.pastel),
+      ];
+
+      const cups = document.querySelectorAll('.cup');
+      cups.forEach((cup, index) => {
+        cup.src = `../imgs/cup-colors/${cupColors[index]}-cup.png`; // Use arr[index] instead of arr[index][0]
+        cup.id = cupColors[index];
+      });
+      mainMenu = false;
+    }
+
+    //Setting Buttons
+
+    bgColorToggle.onclick = function () {
+      bgColorIndex = (bgColorIndex + 1) % bgColorOptions.length;
+      document.body.style.backgroundColor = bgColorOptions[bgColorIndex];
+      bgColorToggle.style.backgroundColor = bgColorOptions[bgColorIndex];
+
+      if (bgColorOptions[bgColorIndex] == '#ffffff') {
+        imageGrid.innerHTML = `
+        <img src="../imgs/collage1.png" />
+        <img src="../imgs/collage2.png" />
+        <img src="../imgs/collage3.png" />
+        <img src="../imgs/collage4.png" />
+        <img src="../imgs/collage5.png" />
+        <img src="../imgs/collage3.png" />`;
+
+        //Styles
+        scoreStyle.backgroundColor = 'rgba(0, 0, 0, 0.656) ';
+        scoreStyle.color = 'white';
+        scoreStyle.borderRadius = '1rem';
+        tableStyle.backgroundColor = 'rgba(44, 44, 44, 0.656)';
+        tableStyle.padding = '3rem';
+        tableStyle.borderRadius = '1rem';
+        playStyle.backgroundColor = 'rgba(0, 0, 0, 0.656) ';
+        playStyle.color = 'white';
+        playStyle.borderRadius = '1rem';
+      } else {
+        imageGrid.innerHTML = ``;
+        //Styles
+        scoreStyle.backgroundColor = 'transparent';
+        scoreStyle.color = 'black';
+        scoreStyle.borderRadius = 'none';
+        tableStyle.backgroundColor = 'transparent';
+        tableStyle.padding = 'none';
+        tableStyle.borderRadius = 'none';
+        playStyle.backgroundColor = 'transparent';
+        playStyle.color = 'black';
+        playStyle.borderRadius = 'none';
+      }
+
+      localStorage.setItem('bgColorIndex', bgColorIndex);
+    };
+  }
+
+  document.body.style.backgroundColor = bgColorOptions[bgColorIndex];
+  bgColorToggle.style.backgroundColor = bgColorOptions[bgColorIndex];
+  bgColorToggle.onclick = function () {
+    bgColorIndex = (bgColorIndex + 1) % bgColorOptions.length;
+    document.body.style.backgroundColor = bgColorOptions[bgColorIndex];
+    bgColorToggle.style.backgroundColor = bgColorOptions[bgColorIndex];
+
     localStorage.setItem('bgColorIndex', bgColorIndex);
   };
 
+  musicToggle.onclick = function () {
+    if (musicOn) {
+      musicOn = false;
+      musicToggle.style.backgroundColor = buttonRedColor;
+      music.pause();
+      localStorage.setItem('musicOn', 'false');
+    } else {
+      musicOn = true;
+      musicToggle.style.backgroundColor = buttonGreenColor;
+      music.play();
+      localStorage.setItem('musicOn', 'true');
+    }
+  };
   cupModeToggle.onclick = function () {
-    cupModeIndex = (cupModeIndex + 1) % 6;
-    cupColors = cupColorOptions[cupModeIndex] || cupColorOptions.pastel;
-    comparisonColors = cupColorOptions[cupModeIndex] || cupColorOptions.pastel;
+    if (!mainMenuToggle || gameSelectToggle) {
+      alert('Please be in the Main Menu to change cup color');
+    } else {
+      cupModeIndex = (cupModeIndex + 1) % 6;
+      cupColors = [
+        ...(cupColorOptions[cupModeIndex] || cupColorOptions.pastel),
+      ];
+      comparisonColors = [
+        ...(cupColorOptions[cupModeIndex] || cupColorOptions.pastel),
+      ];
 
-    shuffleComparison(comparisonColors)
-    cupModeToggle.innerHTML = cupColorNames[cupModeIndex];
-    cups.forEach((cup, index) => {
-      cup.src = `../imgs/cup-colors/${cupColors[index]}-cup.png`;
-      // Use arr[index] instead of arr[index][0]
-      cup.id = cupColors[index];
-    });
+      cupModeToggle.innerHTML = cupColorNames[cupModeIndex];
+      const cups = document.querySelectorAll('.cup');
+      cups.forEach((cup, index) => {
+        cup.src = `../imgs/cup-colors/${cupColors[index]}-cup.png`;
+        // Use arr[index] instead of arr[index][0]
+        cup.id = cupColors[index];
+      });
+    }
 
     localStorage.setItem('cupModeIndex', cupModeIndex);
+  };
+
+  mainMenuButton.onclick = function () {
+    window.location.reload();
+  };
+
+  settingsPlayButton.onclick = function () {
+    if (mainMenuToggle) {
+      initializeGame();
+      mainMenuToggle = false;
+      mainMenu = false;
+    } else {
+      resetGame();
+    }
   };
 }

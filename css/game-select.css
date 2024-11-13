@@ -1,0 +1,44 @@
+/* General styling for the container */
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* Space between buttons */
+
+  padding: 20px;
+  height: 65vh;
+  justify-content: center;
+  margin: 0;
+}
+
+/* Styling for the buttons */
+.button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border: 3px solid #4d4d4d;
+  border-radius: 15px; /* Rounded corners */
+  width: 300px; /* Button width */
+  padding: 15px 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  font-family: 'Arial', sans-serif; /* Font */
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: #4d4d4d;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+/* Button hover effect */
+.button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling for the images/icons */
+.button-icon {
+  height: 40px; /* Adjust size of the image */
+  width: auto;
+  margin-left: 10px; /* Space between text and icon */
+}

@@ -17,8 +17,9 @@ export function shuffle(array) {
 export function shuffleComparison(array) {
   let matching = true;
   let i = 0;
-  console.log(`array: ${array}`);
+
   while (matching) {
+    console.log(`array: ${array}`);
     shuffle(array);
     console.log('iteration');
     console.log(`cupColors: ${cupColors}`);
