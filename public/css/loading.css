@@ -286,10 +286,10 @@ body {
   height: 100%;
   text-align: center;
   background-color: rgba(
-    221,
-    221,
-    221,
-    0.4
+    255,
+    255,
+    255,
+    0.3
   ); /* Optional: Add transparency for readability */
   border-radius: 10px; /* Optional: Rounded corners for a clean look */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle shadow */

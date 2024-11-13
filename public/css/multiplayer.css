@@ -1,0 +1,78 @@
+.multiplayer-title {
+  font-size: 1.7rem;
+  margin-bottom: 2rem;
+}
+
+.multiplayer-char {
+  width: 14rem;
+  margin-bottom: 3rem;
+}
+
+.room-container {
+  background-color: #fbfafd;
+  border: 2px solid #4d4d4d;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.input-section {
+  margin-bottom: 2rem;
+}
+.input-group {
+  display: flex;
+  align-items: center; /* Align items vertically */
+  margin-bottom: 1rem;
+}
+
+label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  flex: 0 0 6rem; /* Set a fixed width for labels to align with input boxes */
+  text-align: left; /* Align the label text to the left */
+}
+
+input[type='text'] {
+  font-size: 1rem;
+  padding: 0.5rem;
+  border: 2px solid #4d4d4d;
+  border-radius: 0.5rem;
+  outline: none;
+  flex: 1; /* Allow input boxes to take the remaining space */
+}
+
+.join-button {
+  background-color: #bcff96; /* Light green */
+  border: 2px solid #4d4d4d;
+  border-radius: 0.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.join-button img {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.room-info p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.create-room-button {
+  background-color: #bcff96; /* Light green */
+  border: 2px solid #4d4d4d;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.create-room-button:hover {
+  background-color: #a4e883;
+}

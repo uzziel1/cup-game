@@ -492,7 +492,7 @@ export function initializeSettingToggles() {
       scoreStyle.backgroundColor = 'rgba(0, 0, 0, 0.656) ';
       scoreStyle.color = 'white';
       scoreStyle.borderRadius = '1rem';
-      tableStyle.backgroundColor = 'rgba(44, 44, 44, 0.656)';
+      tableStyle.backgroundColor = 'transparent';
       tableStyle.padding = '3rem';
       tableStyle.borderRadius = '1rem';
       playStyle.backgroundColor = 'rgba(0, 0, 0, 0.656) ';

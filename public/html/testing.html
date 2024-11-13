@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0 maximum-scale=1.0 user-scalable = 0"
+    />
+    <title>Cup Game</title>
+    <link rel="icon" href="../imgs/cup-game-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hubballi&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../css/loading.css" />
+    <link rel="stylesheet" href="../css/test.css" />
+    <link rel="stylesheet" href="../css/game-select.css" />
+    <link rel="stylesheet" href="../css/multiplayer.css" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="settings-cog" id="settings-cog">
+        <img src="../imgs/Settings-cog.png" />
+      </div>
+      <div class="title"><img src="../imgs/Gabis-cup-game-title.png" />
+      </div>
+      <div class="multiplayer-title">Multiplayer</div>
+      <img  class = "multiplayer-char "src = "../imgs/multiplayer-char.png"> 
+
+      <div class="room-container">
+        <div class="input-section">
+          <div class="input-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter your name"  />
+          </div>
+          <div class="input-group">
+            <label for="room-code">Room code:</label>
+            <input type="text" id="room-code" placeholder="Enter room code"  />
+            <button class="play-button">
+              <img src="../imgs/play-button.png" alt="Play" />
+            </button>
+          </div>
+        </div>
+        <div class="room-info">
+          <p>Don't have a room?</p>
+          <button class="create-room-button">Create room</button>
+        </div>
+      </div>
+      
+     
+      <div class="settings-container" id="settings-modal">
+        <div class="settings-top-bar">
+          <div class="settings-header">Settings</div>
+          <img id="settings-exit-btn" src="../imgs/exit-button.png" />
+        </div>
+        <div class="settings-toggles">
+          <div class="music-row">
+            <div class="music-header">Music</div>
+            <div class="settings-spacer"></div>
+            <button class="music-toggle" id="music-toggle"></button>
+          </div>
+          <div class="bg-color-row">
+            <div class="bg-color-header">BG Color</div>
+            <div class="settings-spacer"></div>
+            <button class="bg-color-toggle" id="bg-color-toggle"></button>
+          </div>
+          <div class="cup-mode-row">
+            <div class="cup-mode-header">Cup Mode</div>
+            <div class="settings-spacer"></div>
+            <button class="cup-mode-toggle" id="cup-mode-toggle">Pastel</button>
+          </div>
+        </div>
+        <div class="settings-bottom-bar">
+          <button class="main-menu-button">Main Menu</button>
+          <button class="play-button">
+            <img style="width: 1rem" src="../imgs/play-button.png" />
+          </button>
+        </div>
+    </div>
+  </body>
+  <script>
+    
+  </script>
+</html>
