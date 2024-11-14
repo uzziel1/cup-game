@@ -10,11 +10,11 @@ import { touchStarted, touchMoving, touchEnded } from './touch.js';
 import { shuffle, shuffleComparison } from './utils.js';
 import { gameSelect, gameSelectToggle } from './game-select.js';
 
-const socket = io('http://localhost:3000');
-socket.on('connect', () => {
-  console.log(`You connected with id: ${socket.id}`);
-  socket.emit('custom-event', 'Hello World');
-});
+// const socket = io('http://localhost:3000');
+// socket.on('connect', () => {
+//   console.log(`You connected with id: ${socket.id}`);
+//   socket.emit('custom-event', 'Hello World');
+// });
 
 let music = new Audio('../music/savage-funk.mp3');
 

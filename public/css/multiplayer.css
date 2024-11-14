@@ -3,6 +3,16 @@
   margin-bottom: 2rem;
 }
 
+.lobby-code,
+.player-count {
+  font-size: 1.2rem;
+  margin-bottom: 0.4rem;
+}
+
+.player-count {
+  margin-bottom: 2rem;
+}
+
 .multiplayer-char {
   width: 14rem;
   margin-bottom: 3rem;
@@ -10,7 +20,7 @@
 
 .room-container {
   background-color: #fbfafd;
-  border: 2px solid #4d4d4d;
+  border: 5px solid #4d4d4d;
   border-radius: 1rem;
   padding: 2rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -64,7 +74,9 @@ input[type='text'] {
   margin-bottom: 1rem;
 }
 
-.create-room-button {
+.create-room-button,
+.start-game-button,
+.return-main-button {
   background-color: #bcff96; /* Light green */
   border: 2px solid #4d4d4d;
   border-radius: 1rem;
@@ -75,4 +87,20 @@ input[type='text'] {
 
 .create-room-button:hover {
   background-color: #a4e883;
+}
+
+.start-game-button {
+  margin-top: 2rem;
+}
+.return-main-button {
+  background-color: #ff6a6e;
+}
+
+.player {
+  background-color: #bcff96;
+  border: 1px solid black;
+  border-radius: 0.3rem;
+
+  padding: 5px;
+  margin-bottom: 0.6rem;
 }

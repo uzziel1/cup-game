@@ -5,6 +5,7 @@ import {
   initializeGame,
 } from './homepage.js';
 
+const socket = io('http://localhost:3000');
 export let gameSelectToggle = false;
 export function gameSelect() {
   gameSelectToggle = true;
@@ -98,7 +99,7 @@ function multiplayerMode() {
             </div>
             <div class="input-group">
                 <label for="room-code">Room code:</label>
-                <input type="text" id="room-code" name="roomCode" placeholder="Enter room code" required />
+                <input type="text" id="room-code" name="roomCode" placeholder="Enter room code" required/>
                 <button type="submit" class="join-button">
                 <img src="../imgs/play-button.png" alt="Play" />
                 </button>
@@ -146,13 +147,93 @@ function multiplayerMode() {
   initializeSettingsListeners();
   initializeSettingToggles();
 
-  document.querySelectorAll('input[required]').forEach((input) => {
-    input.addEventListener('invalid', (event) => {
-      event.target.setCustomValidity('This field is required.');
-    });
+  const roomForm = document.getElementById('room-form');
+  const nameInput = document.getElementById('name');
+  const roomCodeInput = document.getElementById('room-code');
+  const createRoom = document.querySelector('.create-room-button');
 
-    input.addEventListener('input', (event) => {
-      event.target.setCustomValidity(''); // Clear custom message on input
-    });
+  roomForm.addEventListener('submit', (e) => {
+    e.preventDefault(); // Prevent the form from refreshing the page
+
+    const name = nameInput.value.trim();
+    const roomCode = roomCodeInput.value.trim();
+
+    if (name && roomCode) {
+      // Emit joinRoom event to the server
+      socket.emit('joinRoom', { name, roomCode });
+    } else {
+      alert('Both fields are required!');
+    }
   });
+
+  // Listener for when a room is created
+  socket.on('roomCreated', (data) => {
+    const { roomCode, userName } = data;
+    console.log(`Room created! Code: ${roomCode}, Creator: ${userName}`);
+    renderRoomUI(roomCode, userName);
+  });
+
+  // Listener for when a user joins a room
+  socket.on('joinedRoom', (data) => {
+    const { roomCode, users } = data;
+
+    console.log('Users in room:', users);
+
+    // Render the room UI
+    renderRoomUI(roomCode, users[0].name);
+  });
+
+  // Error handling from the server
+  socket.on('error', (data) => {
+    alert(data.message);
+  });
+
+  // Handle "Create Room" button click
+  createRoom.onclick = function () {
+    if (nameInput.value === '') {
+      alert('Please enter the username.');
+    } else {
+      // Emit the createRoom event to the server with the user's name
+      socket.emit('createRoom', { name: nameInput.value });
+    }
+  };
+
+  // Function to render the room UI
+  function renderRoomUI(roomCode, userName) {
+    mainDiv.innerHTML = `
+      <div class="title"><img src="../imgs/Gabis-cup-game-title.png" /></div>
+      <div class="multiplayer-title">${userName}'s Lobby</div>
+      <div class="lobby-code">Lobby code: ${roomCode}</div>
+      <div class="player-count">Player Count: 1</div>
+      <div class="room-container">
+        <!-- Player list will be dynamically updated here -->
+      </div>
+      <button class="start-game-button" id="start-game-button">Start Game</button>
+      <button onclick = "window.location.reload();"class="return-main-button" id="return-main-button">Return to Main Menu</button>
+    `;
+  }
 }
+
+socket.on('updateRoom', (users) => {
+  console.log('Updating room with users:', users);
+
+  const playerList = document.querySelector('.room-container');
+  if (!playerList) {
+    console.error('room-container does not exist');
+    return;
+  }
+
+  console.log(playerList);
+
+  // Clear the list and add new users
+  playerList.innerHTML = '';
+  users.forEach((user) => {
+    playerList.innerHTML += `<div class = "player"> ${user.name} </div>`;
+  });
+
+  // Update player count
+  const playerCount = document.querySelector('.player-count');
+  if (playerCount) {
+    playerCount.textContent = `Player Count: ${users.length}`;
+  }
+});
