@@ -220,7 +220,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/html/index.html');
 });
 // Start the server
-const PORT = 3000;
+const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
