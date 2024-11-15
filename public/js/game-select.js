@@ -23,7 +23,7 @@ let comparisonColors = [
   'purple',
   'pink',
 ];
-const socket = io('http://localhost:3000');
+const socket = io('https://gcg-vhca.onrender.com/'); //Change when updating
 let source;
 let clone; // This will be the smaller "ghost" image
 let joinedRoomCode;
