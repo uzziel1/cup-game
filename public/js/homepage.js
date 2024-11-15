@@ -230,7 +230,6 @@ function resetGame() {
 }
 
 export function initializeGame() {
-  music.play();
   mainDiv.innerHTML = `
  <div class="scores">
       <div class="game-current-score" id="display">Current score: 00:00.00</div>
@@ -470,7 +469,7 @@ export function initializeSettingToggles() {
   let musicOn = localStorage.getItem('musicOn') === 'true'; // Convert to boolean
 
   // Set initial background color based on musicOn
-  if (musicOn) {
+  if (musicOn && !gameSelectToggle && !mainMenu) {
     musicToggle.style.backgroundColor = buttonGreenColor;
     music.play();
   } else {
