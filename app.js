@@ -19,7 +19,7 @@ io.on('connection', (socket) => {
 
   function shuffle(array) {
     let currentIndex = array.length;
-    console.log(array);
+
     while (currentIndex != 0) {
       let randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
@@ -37,7 +37,7 @@ io.on('connection', (socket) => {
       cupColors: data.cupColors,
       comparisonColors: data.comparisonColors,
     };
-    console.log(userColors.comparisonColors);
+
     const room = rooms[roomCode];
     let users = room.users;
 

@@ -10,12 +10,6 @@ import { touchStarted, touchMoving, touchEnded } from './touch.js';
 import { shuffle, shuffleComparison } from './utils.js';
 import { gameSelect, gameSelectToggle } from './game-select.js';
 
-// const socket = io('http://localhost:3000');
-// socket.on('connect', () => {
-//   console.log(`You connected with id: ${socket.id}`);
-//   socket.emit('custom-event', 'Hello World');
-// });
-
 let music = new Audio('../music/savage-funk.mp3');
 
 const highScoreText = document.querySelector('.high-score');
@@ -355,12 +349,7 @@ export function initializeGame() {
       startTimer();
       shuffleComparison(comparisonColors);
       playGame();
-      console.log(comparisonColors);
 
-      //   // utils.js:4 Uncaught TypeError: Cannot read properties of undefined (reading 'length')
-      // at shuffle (utils.js:4:28)
-      // at shuffleComparison (utils.js:22:5)
-      // at shuffleAndChangeCups (homepage.js:346:7)
       return;
     }
 

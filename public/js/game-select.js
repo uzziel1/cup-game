@@ -202,7 +202,6 @@ function multiplayerMode() {
   // Listener for when a room is created
   socket.on('roomCreated', (data) => {
     const { roomCode, userName, userId } = data;
-    console.log(`Room created! Code: ${roomCode}, Creator: ${userName}`);
     joinedRoomCode = roomCode;
     renderRoomUI(roomCode, userName);
   });
@@ -210,8 +209,6 @@ function multiplayerMode() {
   // Listener for when a user joins a room
   socket.on('joinedRoom', (data) => {
     const { roomCode, users } = data;
-
-    console.log('Users in room:', users);
     joinedRoomCode = roomCode;
     roomUsers = users;
 
@@ -292,8 +289,6 @@ function renderRoomUI(roomCode, userName) {
 }
 
 socket.on('updateRoom', (users) => {
-  console.log('Updating room with users:', users);
-
   roomUsers = users;
   const playerList = document.querySelector('.room-container');
   if (!playerList) {
@@ -455,7 +450,6 @@ function initializeMultiplayerGame() {
     }
 
     shuffle(cupColors);
-    console.log(`CupColors: ${cupColors}`);
     updateGameUI();
 
     iteration--;
@@ -485,11 +479,8 @@ function shuffleComparison(array) {
   let i = 0;
 
   while (matching) {
-    console.log(`array: ${array}`);
     shuffle(array);
-    console.log('iteration');
-    console.log(`cupColors: ${cupColors}`);
-    console.log(`comparisonColors: ${comparisonColors}`);
+
     let counter = 0;
     for (let i = 0; i < cupColors.length; i++) {
       if (cupColors[i] === array[i]) {
@@ -509,7 +500,6 @@ function shuffleComparison(array) {
 //Touch FUNCTIONS
 function touchStarted(evt) {
   if (playingUser !== currentUser) {
-    console.log("It's not your turn!");
     return; // Prevent dropping if the user is not the playing user
   }
   evt.preventDefault();
@@ -534,7 +524,6 @@ function touchStarted(evt) {
 // Replace draggingOver with touchMoving
 function touchMoving(evt) {
   if (playingUser !== currentUser) {
-    console.log("It's not your turn!");
     return; // Prevent dropping if the user is not the playing user
   }
   evt.preventDefault();
@@ -554,7 +543,6 @@ function touchMoving(evt) {
 function touchEnded(evt) {
   // Check if it's the current user's turn
   if (playingUser !== currentUser) {
-    console.log("It's not your turn!");
     return; // Prevent any action if the user is not the playing user
   }
 
@@ -586,7 +574,6 @@ function touchEnded(evt) {
     const sourceIndex = cupColors.indexOf(sid);
     const targetIndex = cupColors.indexOf(tid);
     if (sourceIndex === targetIndex) {
-      console.log('Cannot drop on the same cup!');
       return;
     }
     if (sourceIndex !== -1 && targetIndex !== -1) {
@@ -611,7 +598,6 @@ function touchEnded(evt) {
 //Drag functions
 function dragStarted(evt) {
   if (playingUser !== currentUser) {
-    console.log("It's not your turn!");
     return; // Prevent dropping if the user is not the playing user
   }
   source = evt.target;
@@ -622,7 +608,6 @@ function dragStarted(evt) {
 
 function draggingOver(evt) {
   if (playingUser !== currentUser) {
-    console.log("It's not your turn!");
     return; // Prevent dropping if the user is not the playing user
   }
   evt.preventDefault();
@@ -631,7 +616,6 @@ function draggingOver(evt) {
 
 function draggingLeave(evt) {
   if (playingUser !== currentUser) {
-    console.log("It's not your turn!");
     return; // Prevent dropping if the user is not the playing user
   }
   evt.preventDefault();
@@ -642,7 +626,6 @@ socket.on('updateGameState', (data) => {
   roomUsers = data.users;
   playingUserIndex = data.playingUserIndex;
   playingUser = data.playingUserId; // Update the playing user ID
-  console.log(`It's now ${playingUser}'s turn.`);
 
   cupColors = data.cupColors;
   updateGameUI(roomUsers);
@@ -650,7 +633,6 @@ socket.on('updateGameState', (data) => {
 
 function dropped(evt) {
   if (playingUser !== currentUser) {
-    console.log("It's not your turn!");
     return; // Prevent dropping if the user is not the playing user
   }
 
@@ -668,7 +650,6 @@ function dropped(evt) {
   const targetIndex = cupColors.indexOf(tid);
 
   if (sourceIndex === targetIndex) {
-    console.log('Cannot drop on the same cup!');
     return;
   }
   if (sourceIndex !== -1 && targetIndex !== -1) {
