@@ -104,3 +104,7 @@ input[type='text'] {
   padding: 5px;
   margin-bottom: 0.6rem;
 }
+
+.players-turn {
+  font-size: 2rem;
+}

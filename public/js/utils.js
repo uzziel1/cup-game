@@ -26,7 +26,7 @@ export function shuffleComparison(array) {
     console.log(`comparisonColors: ${comparisonColors}`);
     let counter = 0;
     for (let i = 0; i < cupColors.length; i++) {
-      if (cupColors[i] === comparisonColors[i]) {
+      if (cupColors[i] === array[i]) {
         counter++;
       }
     }

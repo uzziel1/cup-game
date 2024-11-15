@@ -295,6 +295,14 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle shadow */
 }
 
+.main-multiplayer {
+  position: relative; /* Stack content above the grid */
+  z-index: 1; /* Ensure it appears above the grid */
+  padding: 20px;
+  height: 100%;
+  text-align: center;
+}
+
 .table-container {
   margin-top: 12rem;
 }

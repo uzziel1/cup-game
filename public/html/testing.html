@@ -24,59 +24,28 @@
   </head>
   <body>
     <div class="main">
-      <div class="settings-cog" id="settings-cog">
-        <img src="../imgs/Settings-cog.png" />
-      </div>
-      <div class="title"><img src="../imgs/Gabis-cup-game-title.png" />
-      </div>
-      <div class="multiplayer-title">Players Lobby</div>
-      <div class="lobby-code">Lobby code: XKDSO1</div>
-      <div class="player-count">Player Counter: 5/7</div>
-      
-
-      <div class="room-container">
-    <div class="player">Uzziel</div>
-    <div class="player">Uzziel</div>
-    <div class="player">Uzziel</div>
-    <div class="player">Uzziel</div>
-    <div class="player">Uzziel</div>
-      </div>
-
-      <button class="start-game-button" id = "start-game-button">Start Game</button>
-      <button class="return-main-button" id = "return-main-button">Return to main Menu</button>
-      
-     
-      <div class="settings-container" id="settings-modal">
-        <div class="settings-top-bar">
-          <div class="settings-header">Settings</div>
-          <img id="settings-exit-btn" src="../imgs/exit-button.png" />
-        </div>
-        <div class="settings-toggles">
-          <div class="music-row">
-            <div class="music-header">Music</div>
-            <div class="settings-spacer"></div>
-            <button class="music-toggle" id="music-toggle"></button>
-          </div>
-          <div class="bg-color-row">
-            <div class="bg-color-header">BG Color</div>
-            <div class="settings-spacer"></div>
-            <button class="bg-color-toggle" id="bg-color-toggle"></button>
-          </div>
-          <div class="cup-mode-row">
-            <div class="cup-mode-header">Cup Mode</div>
-            <div class="settings-spacer"></div>
-            <button class="cup-mode-toggle" id="cup-mode-toggle">Pastel</button>
+      <div class="play-again-container" id="play-again-modal">
+        <div class="top-bar">
+          <div></div>
+          <div class="play-again-text">Congrats on winning!</div>
+          <div class="exit-button" id="exit-btn">
+            <img src="../imgs/exit-button.png" />
           </div>
         </div>
-        <div class="settings-bottom-bar">
-          <button class="main-menu-button">Main Menu</button>
-          <button class="play-button">
-            <img style="width: 1rem" src="../imgs/play-button.png" />
-          </button>
+        <div class="score-bar">
+          <div class="cscore">
+            <div>Current score:</div>
+            <div>${formatTime(score.currentTotalMs)}</div>
+          </div>
+          <div class="hscore">
+            <div>High score:</div>
+            <div>${formatTime(score.highScoreMs)}</div>
+          </div>
         </div>
-    </div>
+        <button class="play-again-button" id="play-again-btn">
+          <img src="../imgs/play-again-button.png" />
+        </button>
+      </div>
   </body>
-  <script>
-    
-  </script>
+  <script></script>
 </html>

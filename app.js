@@ -17,11 +17,38 @@ const rooms = {};
 io.on('connection', (socket) => {
   console.log('A user connected:', socket.id);
 
-  // Handle custom events
-  socket.on('custom-event', (string) => {
-    console.log('Message from client:', string);
-    // Broadcast to all other clients
-    socket.broadcast.emit('message', string);
+  function shuffle(array) {
+    let currentIndex = array.length;
+    console.log(array);
+    while (currentIndex != 0) {
+      let randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+  }
+  socket.emit('connected', { userId: socket.id });
+  socket.on('shuffleCompleted', (data) => {
+    const roomCode = data.joinedRoomCode;
+    const userColors = {
+      cupColors: data.cupColors,
+      comparisonColors: data.comparisonColors,
+    };
+    const room = rooms[roomCode];
+    let users = room.users;
+
+    shuffle(users);
+
+    const gameState = {
+      ...userColors,
+      users,
+    };
+
+    // Broadcast to all users
+    io.to(data.joinedRoomCode).emit('beginGameState', gameState);
   });
 
   // Function to generate a unique room code
@@ -56,7 +83,7 @@ io.on('connection', (socket) => {
     socket.join(roomCode);
 
     // Notify the creator that the room is created
-    socket.emit('roomCreated', { roomCode, userName });
+    socket.emit('roomCreated', { roomCode, userName, userId: socket.id });
 
     // Trigger `updateRoom` so the room creator sees themselves in the lobby
     io.to(roomCode).emit('updateRoom', room.users);
@@ -93,6 +120,52 @@ io.on('connection', (socket) => {
       console.error('Room does not exist:', roomCode);
       socket.emit('error', { message: 'Room code does not exist.' });
     }
+  });
+
+  //CVhanged this
+  socket.on('movePlayed', (data) => {
+    const { cupColors, playingUser, joinedRoomCode } = data;
+
+    // Access the room
+    const room = rooms[joinedRoomCode];
+    if (!room) {
+      console.error(`Room ${joinedRoomCode} not found.`);
+      return;
+    }
+
+    // Use room's `playingUserIndex` if available, or initialize it
+    if (room.playingUserIndex === undefined) {
+      room.playingUserIndex = 0; // Initialize index if not already set
+    }
+
+    const users = room.users;
+
+    // Validate the current playing user
+    const currentPlayingUser = users[room.playingUserIndex].id;
+    if (playingUser !== currentPlayingUser) {
+      console.log(
+        `Invalid move by ${playingUser}. It's ${currentPlayingUser}'s turn.`
+      );
+      return;
+    }
+
+    // Update cupColors in the room state
+    room.cupColors = cupColors;
+
+    // Increment the `playingUserIndex`
+    room.playingUserIndex = (room.playingUserIndex + 1) % users.length;
+
+    // Get the next playing user
+    const nextPlayingUserId = users[room.playingUserIndex].id;
+
+    // Broadcast updated game state to all clients
+    io.to(room.roomCode).emit('updateGameState', {
+      playingUserIndex: room.playingUserIndex,
+      playingUserId: nextPlayingUserId,
+      cupColors,
+    });
+
+    console.log(`Next playing user: ${nextPlayingUserId}`);
   });
   // Handle user disconnection
   socket.on('disconnect', () => {
