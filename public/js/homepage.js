@@ -151,6 +151,7 @@ playButton.addEventListener(
   () => {
     mainMenuToggle = false;
     mainMenu = false;
+    localStorage.setItem('musicOn', 'true');
     gameSelect();
   },
   { once: true }
