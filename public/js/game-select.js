@@ -31,6 +31,7 @@ let currentUser;
 let playingUser;
 let playingUserIndex = 0;
 let counter = 0;
+let roomUsers;
 
 socket.on('connected', (data) => {
   const { userId } = data;
@@ -212,6 +213,7 @@ function multiplayerMode() {
 
     console.log('Users in room:', users);
     joinedRoomCode = roomCode;
+    roomUsers = users;
 
     // Render the room UI
     renderRoomUI(roomCode, users[0].name);
@@ -231,68 +233,68 @@ function multiplayerMode() {
       socket.emit('createRoom', { name: nameInput.value });
     }
   };
+}
+// Function to render the room UI
+function renderRoomUI(roomCode, userName) {
+  mainDiv.innerHTML = `
+   <div class="settings-cog" id="settings-cog">
+      <img src="../imgs/Settings-cog.png" />
+    </div>
+    <div class="title"><img src="../imgs/Gabis-cup-game-title.png" /></div>
+    <div class="multiplayer-title">${userName}'s Lobby</div>
+    <div class="lobby-code">Lobby code: ${roomCode}</div>
+    <div class="player-count">Player Count: 1</div>
 
-  // Function to render the room UI
-  function renderRoomUI(roomCode, userName) {
-    mainDiv.innerHTML = `
-     <div class="settings-cog" id="settings-cog">
-        <img src="../imgs/Settings-cog.png" />
+    <div class="room-container">
+      <!-- Player list will be dynamically updated here -->
+    </div>
+    <button class="start-game-button" id="start-game-button">Start Game</button>
+    <button onclick = "window.location.reload();"class="return-main-button" id="return-main-button">Return to Main Menu</button>
+
+    <div class="settings-container" id="settings-modal">
+      <div class="settings-top-bar">
+        <div class="settings-header">Settings</div>
+        <img id="settings-exit-btn" src="../imgs/exit-button.png" />
       </div>
-      <div class="title"><img src="../imgs/Gabis-cup-game-title.png" /></div>
-      <div class="multiplayer-title">${userName}'s Lobby</div>
-      <div class="lobby-code">Lobby code: ${roomCode}</div>
-      <div class="player-count">Player Count: 1</div>
-
-      <div class="room-container">
-        <!-- Player list will be dynamically updated here -->
-      </div>
-      <button class="start-game-button" id="start-game-button">Start Game</button>
-      <button onclick = "window.location.reload();"class="return-main-button" id="return-main-button">Return to Main Menu</button>
-
-      <div class="settings-container" id="settings-modal">
-        <div class="settings-top-bar">
-          <div class="settings-header">Settings</div>
-          <img id="settings-exit-btn" src="../imgs/exit-button.png" />
+      <div class="settings-toggles">
+        <div class="music-row">
+          <div class="music-header">Music</div>
+          <div class="settings-spacer"></div>
+          <button class="music-toggle" id="music-toggle"></button>
         </div>
-        <div class="settings-toggles">
-          <div class="music-row">
-            <div class="music-header">Music</div>
-            <div class="settings-spacer"></div>
-            <button class="music-toggle" id="music-toggle"></button>
-          </div>
-          <div class="bg-color-row">
-            <div class="bg-color-header">BG Color</div>
-            <div class="settings-spacer"></div>
-            <button class="bg-color-toggle" id="bg-color-toggle"></button>
-          </div>
-          <div class="cup-mode-row">
-            <div class="cup-mode-header">Cup Mode</div>
-            <div class="settings-spacer"></div>
-            <button class="cup-mode-toggle" id="cup-mode-toggle">Pastel</button>
-          </div>
+        <div class="bg-color-row">
+          <div class="bg-color-header">BG Color</div>
+          <div class="settings-spacer"></div>
+          <button class="bg-color-toggle" id="bg-color-toggle"></button>
         </div>
-        <div class="settings-bottom-bar">
-          <button class="main-menu-button">Main Menu</button>
-          <button class="play-button">
-            <img style="width: 1rem" src="../imgs/play-button.png" />
-          </button>
+        <div class="cup-mode-row">
+          <div class="cup-mode-header">Cup Mode</div>
+          <div class="settings-spacer"></div>
+          <button class="cup-mode-toggle" id="cup-mode-toggle">Pastel</button>
         </div>
       </div>
-    `;
+      <div class="settings-bottom-bar">
+        <button class="main-menu-button">Main Menu</button>
+        <button class="play-button">
+          <img style="width: 1rem" src="../imgs/play-button.png" />
+        </button>
+      </div>
+    </div>
+  `;
 
-    initializeSettingsListeners();
-    initializeSettingToggles();
-    const playButton = document.querySelector('.start-game-button');
+  initializeSettingsListeners();
+  initializeSettingToggles();
+  const playButton = document.querySelector('.start-game-button');
 
-    playButton.onclick = function () {
-      initializeMultiplayerGame();
-    };
-  }
+  playButton.onclick = function () {
+    playGame();
+  };
 }
 
 socket.on('updateRoom', (users) => {
   console.log('Updating room with users:', users);
 
+  roomUsers = users;
   const playerList = document.querySelector('.room-container');
   if (!playerList) {
     console.error('room-container does not exist');
@@ -462,13 +464,6 @@ function initializeMultiplayerGame() {
   }
 
   shuffleAndChangeCups();
-}
-
-function playGame() {
-  if (playingUser !== currentUser) {
-    console.log("It's not your turn to play!", playingUser);
-    return; // Exit if the current client is not the playing user
-  }
 }
 
 function shuffle(array) {
@@ -644,12 +639,13 @@ function draggingLeave(evt) {
 
 // Listen for updates to the playing user
 socket.on('updateGameState', (data) => {
+  roomUsers = data.users;
   playingUserIndex = data.playingUserIndex;
   playingUser = data.playingUserId; // Update the playing user ID
   console.log(`It's now ${playingUser}'s turn.`);
 
   cupColors = data.cupColors;
-  updateGameUI();
+  updateGameUI(roomUsers);
 });
 
 function dropped(evt) {
@@ -834,6 +830,9 @@ socket.on('beginGameState', (data) => {
 });
 
 function updateGameUI() {
+  const playersTurn = document.querySelector('.players-turn');
+
+  playersTurn.innerHTML = `${roomUsers[playingUserIndex].name}'s turn`;
   const cups = document.querySelectorAll('.cup');
   cups.forEach((cup, index) => {
     cup.src = `../imgs/cup-colors/${cupColors[index]}-cup.png`;
@@ -852,6 +851,64 @@ function updateGameUI() {
   } else {
     document.querySelector('.play').innerHTML = `You won!`;
     stopTimer();
-    setTimeout(playAgainModal, 500);
+    setTimeout(multiPlayAgainModal, 500);
   }
 }
+
+function multiPlayAgainModal() {
+  mainDiv.innerHTML += `   
+    <div class="multi-play-again-container" id="multi-play-again-modal">
+        <div class="multi-top-bar">
+          <div></div>
+          <div class="multi-play-again-text">Congrats on winning!</div>
+          <div class="exit-button" id="exit-btn">
+            <img src="../imgs/exit-button.png" />
+          </div>
+        </div>
+        <div class="multi-score-bar">
+          <div class="multi-cscore">
+            <div>Final score:</div>
+            <div>${formatTime(score.currentTotalMs)}</div>
+          </div>
+        </div>
+        <button class="multi-play-again-button" id="multi-play-again-btn">
+          <img src="../imgs/play-again-button.png" />
+        </button>
+    </div>`;
+
+  const modal = document.getElementById('multi-play-again-modal');
+  const closeBtn = document.getElementById('exit-btn');
+  const playAgainBtn = document.getElementById('multi-play-again-btn');
+
+  // Close modal when clicking the exit button
+  closeBtn.onclick = function () {
+    modal.style.display = 'none';
+  };
+
+  // Return to the lobby when clicking "Play Again"
+  playAgainBtn.onclick = function () {
+    modal.style.display = 'none';
+    if (roomUsers && joinedRoomCode) {
+      resetGame();
+    } else {
+      console.error('Room data is missing! Cannot render the lobby.');
+    }
+  };
+}
+
+function resetGame() {
+  socket.emit('resetGame', { roomCode: joinedRoomCode });
+}
+
+socket.on('resetGame', () => {
+  resetTimer();
+  initializeMultiplayerGame();
+});
+
+function playGame() {
+  socket.emit('playGame', { roomCode: joinedRoomCode });
+}
+
+socket.on('playGame', () => {
+  initializeMultiplayerGame();
+});

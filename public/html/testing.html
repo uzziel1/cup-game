@@ -23,29 +23,26 @@
     <link rel="stylesheet" href="../css/multiplayer.css" />
   </head>
   <body>
-    <div class="main">
-      <div class="play-again-container" id="play-again-modal">
-        <div class="top-bar">
+    
+      <div class="multi-play-again-container" id="multi-play-again-modal">
+        <div class="multi-top-bar">
           <div></div>
-          <div class="play-again-text">Congrats on winning!</div>
+          <div class="multi-play-again-text">Congrats on winning!</div>
           <div class="exit-button" id="exit-btn">
             <img src="../imgs/exit-button.png" />
           </div>
         </div>
-        <div class="score-bar">
-          <div class="cscore">
-            <div>Current score:</div>
+        <div class="multi-score-bar">
+          <div class="multi-cscore">
+            <div>Final score:</div>
             <div>${formatTime(score.currentTotalMs)}</div>
           </div>
-          <div class="hscore">
-            <div>High score:</div>
-            <div>${formatTime(score.highScoreMs)}</div>
-          </div>
+         
         </div>
-        <button class="play-again-button" id="play-again-btn">
+        <button class="multi-play-again-button" id="multi-play-again-btn">
           <img src="../imgs/play-again-button.png" />
         </button>
-      </div>
+      
   </body>
   <script></script>
 </html>

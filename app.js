@@ -37,6 +37,7 @@ io.on('connection', (socket) => {
       cupColors: data.cupColors,
       comparisonColors: data.comparisonColors,
     };
+    console.log(userColors.comparisonColors);
     const room = rooms[roomCode];
     let users = room.users;
 
@@ -163,9 +164,30 @@ io.on('connection', (socket) => {
       playingUserIndex: room.playingUserIndex,
       playingUserId: nextPlayingUserId,
       cupColors,
+      users,
     });
 
     console.log(`Next playing user: ${nextPlayingUserId}`);
+  });
+
+  socket.on('resetGame', (data) => {
+    const { roomCode } = data;
+    if (rooms[roomCode]) {
+      io.to(roomCode).emit('resetGame'); // Notify all clients in the room to reset the game
+      console.log(`Game reset for room ${roomCode}`);
+    } else {
+      console.error(`Room ${roomCode} not found for reset.`);
+    }
+  });
+
+  socket.on('playGame', (data) => {
+    const { roomCode } = data;
+    if (rooms[roomCode]) {
+      io.to(roomCode).emit('playGame'); // Notify all clients in the room to reset the game
+      console.log(`Game started for room ${roomCode}`);
+    } else {
+      console.error(`Room ${roomCode} not found for reset.`);
+    }
   });
   // Handle user disconnection
   socket.on('disconnect', () => {
